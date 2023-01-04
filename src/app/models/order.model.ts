@@ -4,4 +4,10 @@ export class Order {
   public productAmount: number;
   public userId: number;
 
+  constructor(id: number, productId: number, productAmount: number, userId: number) {
+    this.id = id;
+    this.productId = productId;
+    this.productAmount = productAmount;
+    this.userId = userId;
+  }
 }
