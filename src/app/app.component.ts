@@ -11,21 +11,14 @@ import {Product} from "./models/product.model";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit{
+export class AppComponent{
 
   title = 'IPRWC-Frontend';
 
 
-  constructor(private orderService: ProductService) {
+  constructor() {
   }
 
-  ngOnInit(): void {
-    let order = new Product(3, 'dejbed', 3, "sjdnTest");
-    this.orderService.getAllProducts().subscribe(() => {
 
-        console.log(this.orderService.products)
-      }
-    )
-  }
 }
 
