@@ -41,8 +41,8 @@ export class OrderService {
         }
       }));
   }
-  public updateOrder(newOrder: Object){
-    return this.http.put('http://localhost:8080/api/v1/order/update', newOrder)
+  public updateOrder(updatedOrder: Object){
+    return this.http.put('http://localhost:8080/api/v1/order/update', updatedOrder)
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           console.log(data['message'])
