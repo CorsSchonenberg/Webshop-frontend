@@ -16,11 +16,11 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  setEmployee(employee: User): void {
+  setUser(employee: User): void {
     this.employee = employee;
   }
 
-  getEmployee(): User {
+  getUser(): User {
     return this.employee;
   }
 

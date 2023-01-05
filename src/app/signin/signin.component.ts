@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {UserService} from "../service/user.service";
 import {AuthService} from "../service/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {User} from "../models/user.model";
 
 @Component({
   selector: 'app-signin',
@@ -30,18 +31,15 @@ export class SigninComponent implements OnInit {
     };
     this.loginSubscription = this.authService.loginHandler(credentials).subscribe(() => {
       this.infoSubscription = this.authService.infoHandler().subscribe(data => {
-        // const employee = new Employee(
-        //   data.id,
-        //   data.firstname,
-        //   data.lastname,
-        //   data.phonenumber,
-        //   data.email,
-        //   data.password,
-        //   data.isadmin
-        // );
-        // this.userService.setEmployee(employee);
+        const user = new User(
+          data.id,
+          data.email,
+          data.password,
+        );
+        this.userService.setUser(user);
         this.infoSubscription.unsubscribe();
-        this.router.navigate(['/myreservation'])
+        console.log(this.userService.getUser())
+        console.log(this.userService.getJWT())
       }, error => {
         if (error['statusText'] == "Unknown Error") {
           return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {

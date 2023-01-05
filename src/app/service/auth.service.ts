@@ -13,7 +13,7 @@ export class AuthService {
   }
 
   registerHandler() {
-    return this.http.post('http://localhost:8080/api/v1/auth/register', this.userService.getEmployee())
+    return this.http.post('http://localhost:8080/api/v1/auth/register', this.userService.getUser())
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           this.userService.setJWT(data['message']);
