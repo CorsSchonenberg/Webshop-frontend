@@ -1,0 +1,12 @@
+.navbarStyle {
+  position:sticky;
+  top: 0;
+}
+
+@media (max-width: 750px) {
+  .navbarStyle {
+    position: fixed;
+    width: 100%;
+    z-index: 99999999;
+  }
+}

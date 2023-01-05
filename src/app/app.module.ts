@@ -19,6 +19,8 @@ import {MatSelectModule} from "@angular/material/select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ShopComponent } from './shop/shop.component';
+import { HeaderComponent } from './header/header.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { ShopComponent } from './shop/shop.component';
     StartComponent,
     SigninComponent,
     RegisterComponent,
-    ShopComponent
+    ShopComponent,
+    HeaderComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

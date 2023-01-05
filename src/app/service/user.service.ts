@@ -32,4 +32,8 @@ export class UserService {
     localStorage.setItem('jwt', jwt);
   }
 
+  destroyJWT() {
+    localStorage.removeItem('jwt');
+  }
+
 }

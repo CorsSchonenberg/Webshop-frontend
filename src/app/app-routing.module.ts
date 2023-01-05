@@ -4,12 +4,14 @@ import {StartComponent} from "./start/start.component";
 import {SigninComponent} from "./signin/signin.component";
 import {RegisterComponent} from "./register/register.component";
 import {ShopComponent} from "./shop/shop.component";
+import {CartComponent} from "./cart/cart.component";
 
 const routes: Routes = [
   {path: '', component: StartComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'shop', component: ShopComponent},
+  {path: 'cart', component: CartComponent},
 
 ];
 
