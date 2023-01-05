@@ -13,7 +13,7 @@ export class NextidService {
   constructor(private http: HttpClient) {
   }
 
-  getNextEmployeeId() {
+  getNextUserId() {
     return this.http.get(  'http://localhost:8080/api/v1/nextid/user')
       .pipe(map(res => {
           this.nextUserid = res['payload'];

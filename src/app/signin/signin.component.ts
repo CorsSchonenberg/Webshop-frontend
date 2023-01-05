@@ -38,8 +38,7 @@ export class SigninComponent implements OnInit {
         );
         this.userService.setUser(user);
         this.infoSubscription.unsubscribe();
-        console.log(this.userService.getUser())
-        console.log(this.userService.getJWT())
+        this.router.navigate(['/shop'])
       }, error => {
         if (error['statusText'] == "Unknown Error") {
           return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {

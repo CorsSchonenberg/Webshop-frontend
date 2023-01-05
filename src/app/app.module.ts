@@ -18,13 +18,15 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSelectModule} from "@angular/material/select";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
+import { ShopComponent } from './shop/shop.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     StartComponent,
     SigninComponent,
-    RegisterComponent
+    RegisterComponent,
+    ShopComponent
   ],
   imports: [
     BrowserModule,

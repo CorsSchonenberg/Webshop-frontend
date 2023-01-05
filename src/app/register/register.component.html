@@ -1,0 +1,46 @@
+
+<button class="ripple custom" id="goBackButton" routerLink="/">Go Back</button>
+<div class="container">
+  <section>
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Register here!</h3>
+      </div>
+    </div>
+    <section>
+      <form (ngSubmit)="onSubmit()" #f=ngForm>
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field appearance="fill">
+              <mat-label>Email</mat-label>
+              <input matInput type="email" name="email" ngModel required email #email=ngModel>
+            </mat-form-field>
+            <span class="help-block" *ngIf="!email.valid && email.touched">Please enter a valid email address!</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <mat-form-field appearance="fill">
+              <mat-label>Password</mat-label>
+              <input matInput [type]="showPassword ? 'text' : 'password'" name="password" ngModel required [pattern]="'^[\\w+\\s+0-9\\@$!%*#?&]{8,}$'" #password=ngModel>
+              <mat-icon matSuffix (click)="togglePasswordVisibility()">
+                {{showPassword?'visibility_off':'visibility'}}
+              </mat-icon>
+            </mat-form-field>
+            <span class="help-block" *ngIf="!password.valid && password.touched">Password needs at least 8 characters!</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <button class="ripple custom submit-button"
+                    type="submit"
+                    [disabled]="!f.valid"
+                    mat-button>
+              Register
+            </button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </section>
+</div>
