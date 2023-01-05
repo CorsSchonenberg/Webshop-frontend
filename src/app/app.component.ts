@@ -13,7 +13,6 @@ import {Product} from "./models/product.model";
 })
 export class AppComponent{
 
-  title = 'IPRWC-Frontend';
 
 
   constructor() {

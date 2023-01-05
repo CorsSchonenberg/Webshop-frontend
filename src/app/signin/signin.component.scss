@@ -1,0 +1,113 @@
+.custom {
+  width: 250px;
+  margin-top: 20px;
+  background-color: lightgray;
+  color: black;
+  border: none;
+}
+
+.container {
+  height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section {
+  margin: 10px;
+  width: 300px;
+}
+
+.row {
+  margin: 20px;
+}
+
+mat-label {
+  font-family: Arial;
+}
+
+span {
+  padding: 2px;
+  font-size: 12.5px;
+  color: red;
+  background: #FFE4E1FF;
+}
+
+mat-form-field {
+  width: 250px;
+}
+
+.ripple {
+  background-position: center;
+  transition: background 0.8s;
+}
+.ripple:hover {
+  background: rgba(172, 87, 252, 0.76) radial-gradient(circle, transparent 1%, rgba(185, 141, 215, 0.76) 1%) center/15000%;
+}
+.ripple:active {
+  background-color: #8558e5;
+  background-size: 100%;
+  transition: background 0s;
+}
+
+.submit-button {
+  border: none;
+  border-radius: 2px;
+  width: 100%;
+  padding: 10.5px 18px;
+  font-size: 16px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: #ececec;
+  box-shadow: 0 0 4px #999;
+  outline: none;
+}
+#goBackButton {
+  padding: 0px;
+  margin-top: 0px;
+  margin-left: 20px;
+  width: 105px;
+  height: 40px;
+}
+
+
+
+@media (max-width: 750px) {
+  span {
+    padding: 1px;
+    color: red;
+    font-size: 11px;
+    background: #FFE4E1FF;
+  }
+  #goBackButton {
+    margin-top: 70px;
+  }
+
+
+  .ripple {
+    background-position: center;
+    transition: background 0.8s;
+  }
+
+  .ripple:hover {
+    background: rgba(172, 87, 252, 0.76) radial-gradient(circle, transparent 1%, rgba(112, 38, 175, 0.76) 1%) center/15000%;
+  }
+
+  .ripple:active {
+    background-color: #8558e5;
+    background-size: 100%;
+    transition: background 0s;
+  }
+
+  button {
+    border: none;
+    border-radius: 2px;
+    padding: 12px 18px;
+    font-size: 16px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: #ececec;
+    box-shadow: 0 0 4px #999;
+    outline: none;
+  }
+}
