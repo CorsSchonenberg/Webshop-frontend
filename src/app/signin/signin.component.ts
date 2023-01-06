@@ -39,6 +39,10 @@ export class SigninComponent implements OnInit {
         this.userService.setUser(user);
         this.infoSubscription.unsubscribe();
         this.router.navigate(['/shop'])
+        return this._snackBar.open("Succesfully logged in!", 'Nice!', {
+          duration: 3000,
+          horizontalPosition: 'right'
+        });
       }, error => {
         if (error['statusText'] == "Unknown Error") {
           return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {

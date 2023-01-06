@@ -18,6 +18,9 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (this.productService.products.length !== 0){
+      return;
+    }
     this.productSub = this.productService.getAllProducts().subscribe(() => {
       this.productSub.unsubscribe();
     }, error => {
