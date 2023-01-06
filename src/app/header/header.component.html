@@ -9,7 +9,7 @@
     <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
       <ul class="nav navbar-nav">
         <li><a routerLink="/shop">Shop</a></li>
-        <li><a routerLink="/Cart">Cart (number)</a></li>
+        <li><a routerLink="/Cart">Cart ({{cartNumber}})</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li ><a routerLink="/" (click)="onLogOut()">Log Out</a></li>

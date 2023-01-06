@@ -38,5 +38,6 @@ export class ShopComponent implements OnInit {
   }
   onAddToCart(product: Product) {
     this.productService.cart.push(product)
+    this.productService.cart$.next(this.productService.cart.slice());
   }
 }

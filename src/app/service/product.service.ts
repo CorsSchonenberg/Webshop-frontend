@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {Product} from "../models/product.model";
-import {map} from "rxjs";
+import {BehaviorSubject, map, Subject} from "rxjs";
 import {PromoCode} from "../models/promocode.model";
 import {HttpClient} from "@angular/common/http";
 
@@ -11,6 +11,7 @@ export class ProductService {
 
   public cart: Product[] = [];
   public products: Product[] = [];
+  public cart$: Subject<Product[]> = new BehaviorSubject<Product[]>([]);
 
   constructor(private http: HttpClient) { }
 
