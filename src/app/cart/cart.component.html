@@ -1,1 +1,38 @@
-<p>cart works!</p>
+<app-header></app-header>
+
+
+<div class="flex">
+  <div class="divtop">
+    <p class="subtext">Webshop</p>
+    <div class="grid">
+      <ul *ngFor="let cartItem of filteredCart" class="shop-list-item">
+        <li class="img-responsive img">
+          <img src="{{cartItem.Product.url}}" alt="{{cartItem.Product.description}}">
+        </li>
+        <li class="padding-item">
+          <h5> {{cartItem.amount}} * {{cartItem.Product.description}}</h5>
+        </li>
+        <li class="padding-item">
+          <h5> {{cartItem.Product.price | currency:'EUR'}}</h5>
+        </li>
+        <li class="padding-item">
+          <button class="btn btn-success button-style">+</button>
+          <button class="btn btn-danger button-style">-</button>
+        </li>
+      </ul>
+    </div>
+    <ul  class="shop-total-item">
+      <li class="padding-item">
+        <p class="subtext">Total</p>
+      </li>
+      <li><p></p></li>
+      <li class="padding-item">
+        <h5> {{totalPrice | currency:'EUR'}}</h5>
+      </li>
+      <li class="padding-item">
+      </li>
+    </ul>
+
+  </div>
+</div>
+
