@@ -21,7 +21,7 @@ export class NextidService {
         }
       ));
   }
-  getNextReservationId() {
+  getNextOrderId() {
     return this.http.get('http://localhost:8080/api/v1/nextid/order')
       .pipe(map(res => {
           this.nextOrderid = res['payload'];
@@ -39,7 +39,7 @@ export class NextidService {
       ));
   }
 
-  getNextChargingStationId() {
+  getNextPromoCodeId() {
     return this.http.get('http://localhost:8080/api/v1/nextid/promocode')
       .pipe(map(res => {
           this.nextPromoCodeid = res['payload'];
