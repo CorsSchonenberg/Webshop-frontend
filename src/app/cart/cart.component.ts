@@ -70,8 +70,43 @@ export class CartComponent implements OnInit {
   }
 
   calculatePrice() {
+    this.totalPrice = 0;
     for (let i = 0; i < this.filteredCart.length; i++) {
       this.totalPrice += this.filteredCart[i].Product.price *  this.filteredCart[i].amount;
     }
+  }
+  onAddItem(cartItem: Cart) {
+    this.cart.push(cartItem.Product);
+    this.productService.cart$.next(this.productService.cart.slice());
+    for (let i = 0; i < this.filteredCart.length; i++) {
+      if (cartItem.Product.id === this.filteredCart[i].Product.id){
+        this.filteredCart[i].amount = this.filteredCart[i].amount + 1;
+      }
+    }
+    this.calculatePrice();
+  }
+
+  onDeleteItem(cartItem: Cart){
+    for (let i = 0; i < this.cart.length; i++) {
+      if (this.cart[i].id === cartItem.Product.id ){
+        console.log(this.cart)
+        this.cart.splice(i, 1);
+        this.productService.cart$.next(this.productService.cart.slice());
+        break;
+      }
+    }
+    for (let i = 0; i < this.filteredCart.length; i++) {
+      if (cartItem.Product.id === this.filteredCart[i].Product.id){
+        this.filteredCart[i].amount = this.filteredCart[i].amount - 1;
+        if( this.filteredCart[i].amount < 1){
+          this.filteredCart.splice(i, 1);
+
+        }
+
+      }
+    }
+    console.log(this.cart.length)
+
+    this.calculatePrice();
   }
 }
