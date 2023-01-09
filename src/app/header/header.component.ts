@@ -7,9 +7,10 @@ import {ProductService} from "../service/product.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   collapsed = true;
   public cartNumber: number = 0;
+  public isAdmin = false;
 
 
   constructor(private userService: UserService,
@@ -24,5 +25,12 @@ export class HeaderComponent {
 
   onLogOut(){
     this.userService.setJWT("");
+  }
+  ngOnInit() {
+    if (this.userService.getUser() === undefined){
+      return;
+    }
+    console.log(this.userService.getUser())
+    this.isAdmin = this.userService.getUser().admin;
   }
 }

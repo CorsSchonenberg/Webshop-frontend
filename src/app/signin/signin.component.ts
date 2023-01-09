@@ -35,6 +35,8 @@ export class SigninComponent implements OnInit {
           data.id,
           data.email,
           data.password,
+          data.admin,
+          data.address
         );
         this.userService.setUser(user);
         this.infoSubscription.unsubscribe();

@@ -34,6 +34,8 @@ export class RegisterComponent implements OnInit {
         this.newUserId,
         this.signupForm.value.email,
         this.signupForm.value.password,
+        false,
+        this.signupForm.value.address
       );
       this.userService.setUser(user);
       this.authSub = this.authService.registerHandler().subscribe(() => {
