@@ -42,6 +42,12 @@ export class AddmodeComponent implements OnInit {
        });
        this.addForm.resetForm();
      }, (error) => {
+       if (error['status'] === 401){
+         return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
+           duration: 3000,
+           horizontalPosition: 'right'
+         });
+       }
        if (error['statusText'] == "Unknown Error") {
          return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
            duration: 3000,
@@ -55,6 +61,12 @@ export class AddmodeComponent implements OnInit {
        }
      })
     }, (error) => {
+      if (error['status'] === 401){
+        return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
+          duration: 3000,
+          horizontalPosition: 'right'
+        });
+      }
       if (error['statusText'] == "Unknown Error") {
         return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
           duration: 3000,

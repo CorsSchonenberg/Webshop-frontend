@@ -23,18 +23,24 @@ export class AdminComponent implements OnInit {
 
   }
   fetchData(){
-    console.log('fetch')
     this.productService.products = [];
     this.productSub = this.productService.getAllProducts().subscribe(() => {
       this.productSub.unsubscribe();
     }, error => {
       this.productSub.unsubscribe();
-      if (error['statusText'] == "Unknown Error") {
+      if (error['status'] === 401){
+        return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
+          duration: 3000,
+          horizontalPosition: 'right'
+        });
+      }
+      if (error['statusText'] === "Unknown Error") {
         return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
           duration: 3000,
           horizontalPosition: 'right'
         });
       } else {
+        console.log(error)
         return this._snackBar.open(error, 'Oh no..', {
           duration: 3000,
           horizontalPosition: 'right'
@@ -61,6 +67,12 @@ export class AdminComponent implements OnInit {
     }, error => {
       this.productSub.unsubscribe();
       if (error['statusText'] == "Unknown Error") {
+        if (error['status'] === 401){
+          return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
+            duration: 3000,
+            horizontalPosition: 'right'
+          });
+        }
         return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
           duration: 3000,
           horizontalPosition: 'right'

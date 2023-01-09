@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Order} from "../models/order.model";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,15 @@ import {map} from "rxjs";
 export class OrderService {
   public orders: Order[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private userService: UserService) {
   }
 
   public getAllOrders() {
-    return this.http.get('http://localhost:8080/api/v1/order')
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.get('http://localhost:8080/api/v1/order',{
+      headers: header
+    })
       .pipe(map(res => {
         if (res['code'] === 'ACCEPTED') {
           for (let i = 0; i < res['payload'].length; i++) {
@@ -26,7 +31,10 @@ export class OrderService {
   }
 
   public postOrder(newOrder: Object) {
-    return this.http.post('http://localhost:8080/api/v1/order/insert', newOrder)
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.post('http://localhost:8080/api/v1/order/insert', newOrder,{
+      headers: header
+    })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           console.log(data['message'])
@@ -37,7 +45,10 @@ export class OrderService {
   }
 
   public deleteOrder(id: number) {
-    return this.http.delete('http://localhost:8080/api/v1/order/delete/' + id)
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.delete('http://localhost:8080/api/v1/order/delete/' + id,{
+      headers: header
+    })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           console.log(data['message'])
@@ -48,7 +59,10 @@ export class OrderService {
   }
 
   public updateOrder(updatedOrder: Object) {
-    return this.http.put('http://localhost:8080/api/v1/order/update', updatedOrder)
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.put('http://localhost:8080/api/v1/order/update', updatedOrder,{
+      headers: header
+    })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           console.log(data['message'])

@@ -48,12 +48,18 @@ export class EditmodeComponent implements OnInit {
         this.addForm.value.name)
       ).subscribe( () => {
         this.productSub.unsubscribe()
-        this._snackBar.open('New product has been edited in the shop', 'Nice!', {
+        this._snackBar.open('The product has been edited in the shop', 'Nice!', {
           duration: 3000,
           horizontalPosition: 'right'
         });
         this.addForm.resetForm();
       }, (error) => {
+        if (error['status'] === 401){
+          return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
+            duration: 3000,
+            horizontalPosition: 'right'
+          });
+        }
         if (error['statusText'] == "Unknown Error") {
           return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
             duration: 3000,

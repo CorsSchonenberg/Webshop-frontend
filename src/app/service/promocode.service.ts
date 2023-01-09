@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {Order} from "../models/order.model";
 import {PromoCode} from "../models/promocode.model";
 import {map} from "rxjs";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {UserService} from "./user.service";
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,15 @@ export class PromocodeService {
 
   public promoCodes: PromoCode[] = [];
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private userService: UserService) {
   }
 
   public getAllCodes() {
-    return this.http.get('http://localhost:8080/api/v1/promocode')
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.get('http://localhost:8080/api/v1/promocode',{
+      headers: header
+    })
       .pipe(map(res => {
         if (res['code'] === 'ACCEPTED') {
           console.log(res)
@@ -29,7 +34,10 @@ export class PromocodeService {
   }
 
   public postCode(newCode: Object) {
-    return this.http.post('http://localhost:8080/api/v1/promocode/insert', newCode)
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.post('http://localhost:8080/api/v1/promocode/insert', newCode,{
+      headers: header
+    })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           console.log(data['message'])
@@ -40,7 +48,10 @@ export class PromocodeService {
   }
 
   public deleteCode(id: number) {
-    return this.http.delete('http://localhost:8080/api/v1/promocode/delete/' + id)
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.delete('http://localhost:8080/api/v1/promocode/delete/' + id,{
+      headers: header
+    })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           console.log(data['message'])
@@ -51,7 +62,10 @@ export class PromocodeService {
   }
 
   public updateCode(updatedCode: Object) {
-    return this.http.put('http://localhost:8080/api/v1/promocode/update', updatedCode)
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.put('http://localhost:8080/api/v1/promocode/update', updatedCode,{
+      headers: header
+    })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           console.log(data['message'])
