@@ -37,7 +37,6 @@ export class ShopComponent implements OnInit {
         });
       }
     });
-
   }
   onAddToCart(product: Product) {
     this.productService.cart.push(product)

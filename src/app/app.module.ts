@@ -21,6 +21,8 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ShopComponent } from './shop/shop.component';
 import { HeaderComponent } from './header/header.component';
 import { CartComponent } from './cart/cart.component';
+import { AdminComponent } from './admin/admin.component';
+import { AddmodeComponent } from './admin/addmode/addmode.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { CartComponent } from './cart/cart.component';
     ShopComponent,
     HeaderComponent,
     CartComponent,
+    AdminComponent,
+    AddmodeComponent,
   ],
   imports: [
     BrowserModule,

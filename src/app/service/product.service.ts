@@ -20,6 +20,9 @@ export class ProductService {
       .pipe(map(res => {
         if (res['code'] === 'ACCEPTED') {
           console.log(res)
+          if (this.products.length === 0) {
+            this.products = [];
+          }
           for (let i = 0; i < res['payload'].length; i++) {
             this.products.push(new Product(res['payload'][i].id, res['payload'][i].url, res['payload'][i].price, res['payload'][i].description))
           }

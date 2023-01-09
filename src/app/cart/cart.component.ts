@@ -127,7 +127,6 @@ export class CartComponent implements OnInit {
     for (let i = 0; i < this.filteredCart.length; i++) {
       await new Promise(r => setTimeout(r, 100));
       this.nextIdSub = this.nextIdService.getNextOrderId().subscribe((data) => {
-        console.log('test')
         this.newOrderSub = this.orderService.postOrder(new Order(
           data,
           this.filteredCart[i].Product.id,

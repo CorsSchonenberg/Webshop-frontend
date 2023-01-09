@@ -30,7 +30,7 @@ export class NextidService {
       ));
   }
 
-  getNextVisitId() {
+  getNextProductId() {
     return this.http.get('http://localhost:8080/api/v1/nextid/product')
       .pipe(map(res => {
           this.nextProductid = res['payload'];

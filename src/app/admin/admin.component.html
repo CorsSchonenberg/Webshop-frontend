@@ -1,0 +1,34 @@
+<app-header></app-header>
+
+
+<div class="flex">
+  <div class="divtop">
+    <p class="subtext">Admin Page</p>
+    <app-addmode *ngIf="addMode"></app-addmode>
+
+    <button class="btn btn-default custom" *ngIf="!addMode"(click)="onAddProduct()">Add Product &#x271A; </button>
+    <button class="btn btn-default " *ngIf="addMode" (click)="onAddProduct()">Go back to here</button>
+
+    <div *ngIf="!addMode" class="grid">
+      <ul *ngFor="let product of products" class="shop-list-item">
+        <li class="img-responsive img">
+          <img src="{{product.url}}" alt="{{product.description}}">
+        </li>
+        <li class="padding-item">
+          <h5>{{product.description}}</h5>
+        </li>
+        <li class="padding-item">
+          <h5> {{product.price | currency:'EUR'}}</h5>
+        </li>
+        <li class="padding-item">
+          <p>
+            <button (click)="onDeleteProduct(product)" type="button"
+                    class="btn btn-danger ">
+              <b>Delete</b>
+            </button>
+          </p>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
