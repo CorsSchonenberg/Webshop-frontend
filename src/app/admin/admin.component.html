@@ -6,8 +6,8 @@
     <p class="subtext">Admin Page</p>
     <app-addmode *ngIf="addMode"></app-addmode>
 
-    <button class="btn btn-default custom" *ngIf="!addMode"(click)="onAddProduct()">Add Product &#x271A; </button>
-    <button class="btn btn-default " *ngIf="addMode" (click)="onAddProduct()">Go back to here</button>
+    <button class="btn btn-default custom" *ngIf="!addMode"(click)="onChangeMode()">Add Product &#x271A; </button>
+    <button class="btn btn-default " *ngIf="addMode" (click)="onChangeMode()">Go back to here</button>
 
     <div *ngIf="!addMode" class="grid">
       <ul *ngFor="let product of products" class="shop-list-item">

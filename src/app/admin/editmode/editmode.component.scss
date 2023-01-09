@@ -4,7 +4,9 @@
   color: black;
   border: none;
 }
-
+h3 {
+  text-align: center;
+}
 span {
   padding: 6px;
   color: red;
@@ -23,7 +25,9 @@ span {
   grid-template-columns: auto auto auto;
 }
 
+button{
 
+}
 
 section {
   margin: 10px;
@@ -57,14 +61,7 @@ input.ng-invalid.ng-touched {
   #submitButton {
     margin-top: 1px;
   }
-  #emailImage {
-    visibility: hidden;
-    position: absolute;
-  }
-  h3 {
-    visibility: hidden;
-    position: absolute;
-  }
+
   section {
     position: relative;
   }

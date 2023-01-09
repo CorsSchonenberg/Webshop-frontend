@@ -18,7 +18,7 @@ export class EditmodeComponent implements OnInit {
   productSub: Subscription;
   //productValues = [this.productService.productEdit.description, this.productService.productEdit.url, this.productService.productEdit.price]
   productValues = {
-    name: 'bruh',
+    name: null,
     price: null,
     url: null,
   }
@@ -48,7 +48,7 @@ export class EditmodeComponent implements OnInit {
         this.addForm.value.name)
       ).subscribe( () => {
         this.productSub.unsubscribe()
-        this._snackBar.open('New product has been added to shop', 'Nice!', {
+        this._snackBar.open('New product has been edited in the shop', 'Nice!', {
           duration: 3000,
           horizontalPosition: 'right'
         });
