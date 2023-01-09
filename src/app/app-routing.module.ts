@@ -6,6 +6,7 @@ import {RegisterComponent} from "./register/register.component";
 import {ShopComponent} from "./shop/shop.component";
 import {CartComponent} from "./cart/cart.component";
 import {AdminComponent} from "./admin/admin.component";
+import {EditmodeComponent} from "./admin/editmode/editmode.component";
 
 const routes: Routes = [
   {path: '', component: StartComponent},
@@ -14,6 +15,7 @@ const routes: Routes = [
   {path: 'shop', component: ShopComponent},
   {path: 'cart', component: CartComponent},
   {path: 'admin', component: AdminComponent},
+  {path: 'edit', component: EditmodeComponent},
 
 ];
 

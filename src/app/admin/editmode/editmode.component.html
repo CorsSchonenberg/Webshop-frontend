@@ -1,0 +1,57 @@
+<app-header></app-header>
+<div class="container">
+  <div class="content">
+    <div class="row">
+      <div class="col-xs-12">
+        <h3>Add Product here!</h3>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <form (ngSubmit)="onSubmit()" #f=ngForm>
+          <div class="grid">
+            <section>
+              <label>Name</label>
+              <input class="form-control"
+                     type="text"
+                     name="name"
+                     value="name"
+                     ngModel
+                     required
+                     #name=ngModel>
+              <span class="help-block" *ngIf="!name.valid && name.touched">
+                Please enter a valid name!</span>
+            </section>
+            <section>
+              <label>Url photo</label>
+              <input class="form-control"
+                     type="text"
+                     name="url"
+
+                     ngModel
+                     required
+                     #url=ngModel>
+              <span class="help-block" *ngIf="!url.valid && url.touched">
+                Please enter a valid url!</span>
+            </section>
+            <section>
+              <label>Price</label>
+              <input class="form-control"
+                     type="text"
+                     name="price"
+                     ngModel
+                     required
+
+                     [pattern]="'^[+-]?([0-9]*[.])?[0-9]+'"
+                     #price=ngModel>
+              <span class="help-block" *ngIf="!price.valid && price.touched">
+                Please enter a valid price!</span>
+
+            </section>
+          </div>
+          <button class="btn btn-default" [disabled]="!f.valid">Edit Product &#x271A;</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

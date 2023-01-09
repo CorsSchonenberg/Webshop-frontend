@@ -23,6 +23,7 @@ import { HeaderComponent } from './header/header.component';
 import { CartComponent } from './cart/cart.component';
 import { AdminComponent } from './admin/admin.component';
 import { AddmodeComponent } from './admin/addmode/addmode.component';
+import { EditmodeComponent } from './admin/editmode/editmode.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { AddmodeComponent } from './admin/addmode/addmode.component';
     CartComponent,
     AdminComponent,
     AddmodeComponent,
+    EditmodeComponent,
   ],
   imports: [
     BrowserModule,

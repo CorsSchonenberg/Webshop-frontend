@@ -12,6 +12,7 @@ export class ProductService {
   public cart: Product[] = [];
   public products: Product[] = [];
   public cart$: Subject<Product[]> = new BehaviorSubject<Product[]>([]);
+  public productEdit: Product;
 
   constructor(private http: HttpClient) { }
 

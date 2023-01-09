@@ -1,0 +1,77 @@
+.custom {
+  width: 250px;
+  background-color: lightgray;
+  color: black;
+  border: none;
+}
+
+span {
+  padding: 6px;
+  color: red;
+  background: #FFE4E1FF;
+}
+
+.container {
+  height: 55%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: auto auto auto;
+}
+
+
+
+section {
+  margin: 10px;
+}
+
+input {
+  width: 250px;
+  background-color: lightgray;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1.5px solid red;
+  background: #FFE4E1FF;
+}
+
+
+.custom {
+  background-color: white;
+  padding: 12px 6px;
+}
+
+
+@media (max-width: 750px) {
+  .grid {
+    grid-template-columns: auto;
+  }
+  .container {
+    margin-top: 20%;
+    height: auto;
+  }
+  #submitButton {
+    margin-top: 1px;
+  }
+  #emailImage {
+    visibility: hidden;
+    position: absolute;
+  }
+  h3 {
+    visibility: hidden;
+    position: absolute;
+  }
+  section {
+    position: relative;
+  }
+
+  #goBackButton {
+    margin-top: 70px;
+  }
+}
+
+

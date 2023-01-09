@@ -74,8 +74,11 @@ export class AdminComponent implements OnInit {
     })
 
   }
-  onAddProduct() {
+  onAddProduct(): void {
     this.addMode = !this.addMode;
+  }
+  onEditProduct(product: Product){
+    this.productService.productEdit = product;
   }
 }
 
