@@ -10,18 +10,17 @@ import {User} from "../models/user.model";
   }
 )
 export class UserService {
-  employee: User;
 
 
   constructor(private http: HttpClient) {
   }
 
-  setUser(employee: User): void {
-    this.employee = employee;
+  setUser(user: User): void {
+    localStorage.setItem('user', JSON.stringify(user));
   }
 
   getUser(): User {
-    return this.employee;
+    return JSON.parse(localStorage.getItem('user'));
   }
 
   getJWT():string {
@@ -34,6 +33,9 @@ export class UserService {
 
   destroyJWT() {
     localStorage.removeItem('jwt');
+  }
+  destroyUser(){
+    localStorage.removeItem('user')
   }
 
 }

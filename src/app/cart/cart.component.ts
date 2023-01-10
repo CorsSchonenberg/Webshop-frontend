@@ -125,7 +125,7 @@ export class CartComponent implements OnInit {
   async onPay() {
     let userId: number = 1;
     for (let i = 0; i < this.filteredCart.length; i++) {
-      await new Promise(r => setTimeout(r, 100));
+      await new Promise(r => setTimeout(r, 250));
       this.nextIdSub = this.nextIdService.getNextOrderId().subscribe((data) => {
         this.newOrderSub = this.orderService.postOrder(new Order(
           data,

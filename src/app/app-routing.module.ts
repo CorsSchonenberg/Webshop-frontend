@@ -7,15 +7,17 @@ import {ShopComponent} from "./shop/shop.component";
 import {CartComponent} from "./cart/cart.component";
 import {AdminComponent} from "./admin/admin.component";
 import {EditmodeComponent} from "./admin/editmode/editmode.component";
+import {AuthGuard} from "./service/auth.guard";
+import {AdminGuard} from "./service/admin.guard";
 
 const routes: Routes = [
   {path: '', component: StartComponent},
   {path: 'signin', component: SigninComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'shop', component: ShopComponent},
-  {path: 'cart', component: CartComponent},
-  {path: 'admin', component: AdminComponent},
-  {path: 'edit', component: EditmodeComponent},
+  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard]},
+  {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
+  {path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard]},
+  {path: 'edit', component: EditmodeComponent, canActivate: [AuthGuard]},
 
 ];
 

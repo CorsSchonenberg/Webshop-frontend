@@ -24,7 +24,8 @@ export class HeaderComponent implements OnInit{
   }
 
   onLogOut(){
-    this.userService.setJWT("");
+    this.userService.destroyJWT();
+    this.userService.destroyUser();
   }
   ngOnInit() {
     if (this.userService.getUser() === undefined){
