@@ -42,7 +42,6 @@ export class AdminComponent implements OnInit {
           horizontalPosition: 'right'
         });
       } else {
-        console.log(error)
         return this._snackBar.open(error, 'Oh no..', {
           duration: 3000,
           horizontalPosition: 'right'
@@ -93,7 +92,6 @@ export class AdminComponent implements OnInit {
   }
   onEditProduct(product: Product){
     this.productService.productEdit = product;
-    console.log(this.productService.productEdit)
     this.router.navigate(['/edit'])
   }
 }

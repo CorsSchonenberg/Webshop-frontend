@@ -66,7 +66,6 @@ export class SigninComponent implements OnInit {
       });
       this.loginSubscription.unsubscribe();
     }, error => {
-      console.log(error)
       if (error['status'] === 401){
         return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
           duration: 3000,

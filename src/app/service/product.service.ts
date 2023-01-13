@@ -46,7 +46,6 @@ export class ProductService {
     })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
-          console.log(data['message'])
         } else {
           throw new Error(data['message'])
         }
@@ -60,7 +59,6 @@ export class ProductService {
     })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
-          console.log(data['message'])
         } else {
           throw new Error(data['message'])
         }
@@ -74,7 +72,6 @@ export class ProductService {
     })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
-          console.log(data['message'])
         } else {
           throw new Error(data['message'])
         }

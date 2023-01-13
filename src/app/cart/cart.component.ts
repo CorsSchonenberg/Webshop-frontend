@@ -103,7 +103,6 @@ export class CartComponent implements OnInit {
   onDeleteItem(cartItem: Cart): void {
     for (let i = 0; i < this.cart.length; i++) {
       if (this.cart[i].id === cartItem.Product.id) {
-        console.log(this.cart)
         this.cart.splice(i, 1);
         this.productService.cart$.next(this.productService.cart.slice());
         break;

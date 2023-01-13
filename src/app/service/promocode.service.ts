@@ -24,7 +24,6 @@ export class PromocodeService {
     })
       .pipe(map(res => {
         if (res['code'] === 'ACCEPTED') {
-          console.log(res)
           for (let i = 0; i < res['payload'].length; i++) {
             this.promoCodes.push(new PromoCode(res['payload'][i].id, res['payload'][i].discount, res['payload'][i].code))
           }
@@ -41,7 +40,6 @@ export class PromocodeService {
     })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
-          console.log(data['message'])
         } else {
           throw new Error(data['message'])
         }
@@ -55,7 +53,6 @@ export class PromocodeService {
     })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
-          console.log(data['message'])
         } else {
           throw new Error(data['message'])
         }
@@ -69,7 +66,6 @@ export class PromocodeService {
     })
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
-          console.log(data['message'])
         } else {
           throw new Error(data['message'])
         }
