@@ -3,6 +3,7 @@ import {Order} from "../models/order.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs";
 import {UserService} from "./user.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class OrderService {
 
   public getAllOrders() {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get('http://localhost:8080/api/v1/order',{
+    return this.http.get(environment.apiKey + 'order', {
       headers: header
     })
       .pipe(map(res => {
@@ -32,7 +33,7 @@ export class OrderService {
 
   public postOrder(newOrder: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.post('http://localhost:8080/api/v1/order/insert', newOrder,{
+    return this.http.post(environment.apiKey + 'order/insert', newOrder, {
       headers: header
     })
       .pipe(map(data => {
@@ -46,7 +47,7 @@ export class OrderService {
 
   public deleteOrder(id: number) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.delete('http://localhost:8080/api/v1/order/delete/' + id,{
+    return this.http.delete(environment.apiKey + 'order/delete/' + id, {
       headers: header
     })
       .pipe(map(data => {
@@ -60,7 +61,7 @@ export class OrderService {
 
   public updateOrder(updatedOrder: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put('http://localhost:8080/api/v1/order/update', updatedOrder,{
+    return this.http.put(environment.apiKey + 'order/update', updatedOrder, {
       headers: header
     })
       .pipe(map(data => {

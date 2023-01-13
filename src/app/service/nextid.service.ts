@@ -1,6 +1,7 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -10,19 +11,21 @@ export class NextidService {
   private nextProductid: number;
   private nextOrderid: number;
   private nextPromoCodeid: number;
+
   constructor(private http: HttpClient) {
   }
 
   getNextUserId() {
-    return this.http.get(  'http://localhost:8080/api/v1/nextid/user')
+    return this.http.get(environment.apiKey + 'nextid/user')
       .pipe(map(res => {
           this.nextUserid = res['payload'];
           return this.nextUserid;
         }
       ));
   }
+
   getNextOrderId() {
-    return this.http.get('http://localhost:8080/api/v1/nextid/order')
+    return this.http.get(environment.apiKey + 'nextid/order')
       .pipe(map(res => {
           this.nextOrderid = res['payload'];
           return this.nextOrderid;
@@ -31,7 +34,7 @@ export class NextidService {
   }
 
   getNextProductId() {
-    return this.http.get('http://localhost:8080/api/v1/nextid/product')
+    return this.http.get(environment.apiKey + 'nextid/product')
       .pipe(map(res => {
           this.nextProductid = res['payload'];
           return this.nextProductid;
@@ -40,7 +43,7 @@ export class NextidService {
   }
 
   getNextPromoCodeId() {
-    return this.http.get('http://localhost:8080/api/v1/nextid/promocode')
+    return this.http.get(environment.apiKey + 'nextid/promocode')
       .pipe(map(res => {
           this.nextPromoCodeid = res['payload'];
           return this.nextPromoCodeid;

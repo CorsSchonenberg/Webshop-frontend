@@ -30,7 +30,7 @@ export class EditmodeComponent implements OnInit {
 
 
   ngOnInit(): void {
-    if (this.productService.productEdit === undefined) {
+    if (this.productService.productEdit === undefined){
       return;
     }
     this.productValues = {
@@ -38,6 +38,7 @@ export class EditmodeComponent implements OnInit {
       price: this.productService.productEdit.price,
       url: this.productService.productEdit.url,
     }
+    console.log(this.productValues);
   }
 
   onSubmit():void{

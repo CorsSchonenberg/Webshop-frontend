@@ -31,7 +31,6 @@ export class HeaderComponent implements OnInit{
     if (this.userService.getUser() === undefined){
       return;
     }
-    console.log(this.userService.getUser())
     this.isAdmin = this.userService.getUser().admin;
   }
 }

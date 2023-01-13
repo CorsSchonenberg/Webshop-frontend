@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map, Subscription} from "rxjs";
 import {UserService} from "./user.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: "root"
@@ -13,7 +14,7 @@ export class AuthService {
   }
 
   registerHandler() {
-    return this.http.post('http://localhost:8080/api/v1/auth/register', this.userService.getUser())
+    return this.http.post(environment.apiKey + 'auth/register', this.userService.getUser())
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           this.userService.setJWT(data['message']);
@@ -24,7 +25,7 @@ export class AuthService {
   }
 
   loginHandler(credentials: Object) {
-    return this.http.post('http://localhost:8080/api/v1/auth/login', credentials)
+    return this.http.post(environment.apiKey + 'auth/login', credentials)
       .pipe(map(data => {
         if (data['code'] === 'ACCEPTED') {
           this.userService.setJWT(data['message']);
@@ -36,7 +37,7 @@ export class AuthService {
 
   infoHandler() {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get('http://localhost:8080/api/v1/auth/info',
+    return this.http.get(environment.apiKey + 'auth/info',
       {
         headers: header
       }).pipe(map(data => {

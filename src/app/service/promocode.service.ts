@@ -4,6 +4,7 @@ import {PromoCode} from "../models/promocode.model";
 import {map} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserService} from "./user.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class PromocodeService {
 
   public getAllCodes() {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get('http://localhost:8080/api/v1/promocode',{
+    return this.http.get(environment.apiKey + 'promocode', {
       headers: header
     })
       .pipe(map(res => {
@@ -35,7 +36,7 @@ export class PromocodeService {
 
   public postCode(newCode: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.post('http://localhost:8080/api/v1/promocode/insert', newCode,{
+    return this.http.post(environment.apiKey + 'promocode/insert', newCode, {
       headers: header
     })
       .pipe(map(data => {
@@ -49,7 +50,7 @@ export class PromocodeService {
 
   public deleteCode(id: number) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.delete('http://localhost:8080/api/v1/promocode/delete/' + id,{
+    return this.http.delete(environment.apiKey + 'promocode/delete/' + id, {
       headers: header
     })
       .pipe(map(data => {
@@ -63,7 +64,7 @@ export class PromocodeService {
 
   public updateCode(updatedCode: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put('http://localhost:8080/api/v1/promocode/update', updatedCode,{
+    return this.http.put(environment.apiKey + 'promocode/update', updatedCode, {
       headers: header
     })
       .pipe(map(data => {

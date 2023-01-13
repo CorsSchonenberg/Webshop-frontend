@@ -3,6 +3,7 @@ import {Subscription} from "rxjs";
 import {Product} from "../models/product.model";
 import {ProductService} from "../service/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +16,8 @@ export class AdminComponent implements OnInit {
   products: Product[] = this.productService.products;
 
   constructor(private productService: ProductService,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private router: Router) {
   }
 
   ngOnInit() {
@@ -91,6 +93,8 @@ export class AdminComponent implements OnInit {
   }
   onEditProduct(product: Product){
     this.productService.productEdit = product;
+    console.log(this.productService.productEdit)
+    this.router.navigate(['/edit'])
   }
 }
 

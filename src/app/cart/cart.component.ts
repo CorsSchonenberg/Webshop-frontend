@@ -123,7 +123,7 @@ export class CartComponent implements OnInit {
   }
 
   async onPay() {
-    let userId: number = 1;
+    let userId: number = this.userService.getUser().id;
     for (let i = 0; i < this.filteredCart.length; i++) {
       await new Promise(r => setTimeout(r, 250));
       this.nextIdSub = this.nextIdService.getNextOrderId().subscribe((data) => {
@@ -133,14 +133,14 @@ export class CartComponent implements OnInit {
           this.filteredCart[i].amount,
           userId)).subscribe(() => {
           this.newOrderSub.unsubscribe()
-          if (this.filteredCart.length - 1=== i) {
+          if (this.filteredCart.length - 1 === i) {
             this._snackBar.open('Your order has been handled', 'Nice!', {
               duration: 3000,
               horizontalPosition: 'right'
             });
           }
         }, (error) => {
-          if (error['status'] === 401){
+          if (error['status'] === 401) {
             return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
               duration: 3000,
               horizontalPosition: 'right'
@@ -160,7 +160,7 @@ export class CartComponent implements OnInit {
         })
         this.nextIdSub.unsubscribe();
       }, (error) => {
-        if (error['status'] === 401){
+        if (error['status'] === 401) {
           return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
             duration: 3000,
             horizontalPosition: 'right'
@@ -178,6 +178,12 @@ export class CartComponent implements OnInit {
           });
         }
       })
-      }
     }
+    await new Promise(r => setTimeout(r, 1000));
+    this.filteredCart = [];
+    this.totalPrice = 0;
+    this.cart = []
+    this.productService.cart = [];
+    this.productService.cart$.next(this.productService.cart);
+  }
 }

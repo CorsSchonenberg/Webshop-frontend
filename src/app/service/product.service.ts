@@ -1,9 +1,10 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Product} from "../models/product.model";
 import {BehaviorSubject, map, Subject} from "rxjs";
 import {PromoCode} from "../models/promocode.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserService} from "./user.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,12 @@ export class ProductService {
   public productEdit: Product;
 
   constructor(private http: HttpClient,
-              private userService: UserService) { }
+              private userService: UserService) {
+  }
 
   public getAllProducts() {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get('http://localhost:8080/api/v1/product',{
+    return this.http.get(environment.apiKey + 'product', {
       headers: header
     })
       .pipe(map(res => {
@@ -39,7 +41,7 @@ export class ProductService {
 
   public postProduct(newCode: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.post('http://localhost:8080/api/v1/product/insert', newCode,{
+    return this.http.post(environment.apiKey + 'product/insert', newCode, {
       headers: header
     })
       .pipe(map(data => {
@@ -53,7 +55,7 @@ export class ProductService {
 
   public deleteProduct(id: number) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.delete('http://localhost:8080/api/v1/product/delete/' + id,{
+    return this.http.delete(environment.apiKey + 'product/delete/' + id, {
       headers: header
     })
       .pipe(map(data => {
@@ -67,7 +69,7 @@ export class ProductService {
 
   public updateProduct(updatedCode: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put('http://localhost:8080/api/v1/product/update', updatedCode,{
+    return this.http.put(environment.apiKey + 'product/update', updatedCode, {
       headers: header
     })
       .pipe(map(data => {
