@@ -125,56 +125,31 @@ export class CartComponent implements OnInit {
     let userId: number = this.userService.getUser().id;
     for (let i = 0; i < this.filteredCart.length; i++) {
       await new Promise(r => setTimeout(r, 250));
-      this.nextIdSub = this.nextIdService.getNextOrderId().subscribe((data) => {
-        this.newOrderSub = this.orderService.postOrder(new Order(
-          data,
-          this.filteredCart[i].Product.id,
-          this.filteredCart[i].amount,
-          userId)).subscribe(() => {
-          this.newOrderSub.unsubscribe()
+      let order = new Order(
+        null,
+        this.filteredCart[i].Product.id,
+        this.filteredCart[i].amount,
+        userId)
+      delete order.id;
+
+      this.newOrderSub = this.orderService.postOrder(order).subscribe({
+        next: data => {
+          console.log("yeahhhhh")
           if (this.filteredCart.length - 1 === i) {
             this._snackBar.open('Your order has been handled', 'Nice!', {
               duration: 3000,
               horizontalPosition: 'right'
             });
           }
-        }, (error) => {
-          if (error['status'] === 401) {
-            return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-              duration: 3000,
-              horizontalPosition: 'right'
-            });
-          }
-          if (error['statusText'] == "Unknown Error") {
-            return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-              duration: 3000,
-              horizontalPosition: 'right'
-            });
-          } else {
-            return this._snackBar.open(error, 'Oh no..', {
-              duration: 3000,
-              horizontalPosition: 'right'
-            });
-          }
-        })
-        this.nextIdSub.unsubscribe();
-      }, (error) => {
-        if (error['status'] === 401) {
-          return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
-        }
-        if (error['statusText'] == "Unknown Error") {
-          return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
-        } else {
-          return this._snackBar.open(error, 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
+          this.newOrderSub.unsubscribe();
+        }, error: err => {
+          console.log(err)
+          if (err['status'] === 401) {
+            return this.orderService.errorHandler("Error 402: Not authorized");
+          } else if (err['statusText'] === "Unknown Error") {
+            return this.orderService.errorHandler("Error 404: Not found");
+          } else this.orderService.errorHandler(err);
+
         }
       })
     }
@@ -184,5 +159,6 @@ export class CartComponent implements OnInit {
     this.cart = []
     this.productService.cart = [];
     this.productService.cart$.next(this.productService.cart);
+
   }
 }

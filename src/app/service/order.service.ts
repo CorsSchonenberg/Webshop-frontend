@@ -4,6 +4,8 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
+import {ApiResponse} from "../models/ApiResponse.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +14,8 @@ export class OrderService {
   public orders: Order[] = [];
 
   constructor(private http: HttpClient,
-              private userService: UserService) {
+              private userService: UserService,
+              private _snackBar: MatSnackBar) {
   }
 
   public getAllOrders() {
@@ -36,10 +39,16 @@ export class OrderService {
     return this.http.post(environment.apiKey + 'order/insert', newOrder, {
       headers: header
     })
-      .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
+      .pipe(
+        map(data => {
+          const resData = new ApiResponse(
+            data['code'],
+            data['payload'],
+            data['message'])
+        if (resData.code === 'ACCEPTED') {
         } else {
-          throw new Error(data['message'])
+          console.log(resData)
+          throw new Error(resData.message)
         }
       }));
   }
@@ -68,5 +77,12 @@ export class OrderService {
           throw new Error(data['message'])
         }
       }));
+  }
+
+  errorHandler(message: string) {
+    return this._snackBar.open(message, 'Oh no..', {
+      duration: 3000,
+      horizontalPosition: 'right'
+    });
   }
 }

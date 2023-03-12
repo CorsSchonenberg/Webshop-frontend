@@ -15,14 +15,6 @@ export class NextidService {
   constructor(private http: HttpClient) {
   }
 
-  getNextUserId() {
-    return this.http.get(environment.apiKey + 'nextid/user')
-      .pipe(map(res => {
-          this.nextUserid = res['payload'];
-          return this.nextUserid;
-        }
-      ));
-  }
 
   getNextOrderId() {
     return this.http.get(environment.apiKey + 'nextid/order')
