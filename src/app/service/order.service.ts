@@ -36,7 +36,7 @@ export class OrderService {
 
   public postOrder(newOrder: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.post(environment.apiKey + 'order/insert', newOrder, {
+    return this.http.post<HttpClient>(environment.apiKey + 'order/insert', newOrder, {
       headers: header
     })
       .pipe(
@@ -47,7 +47,6 @@ export class OrderService {
             data['message'])
         if (resData.code === 'ACCEPTED') {
         } else {
-          console.log(resData)
           throw new Error(resData.message)
         }
       }));

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from "../service/product.service";
 import {Product} from "../models/product.model";
 import {Subscription} from "rxjs";
@@ -9,7 +9,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent implements OnInit {
+export class ShopComponent implements OnInit, OnDestroy {
   productSub: Subscription;
   products: Product[] = this.productService.products;
 
@@ -18,39 +18,31 @@ export class ShopComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.productService.products.length !== 0){
+    if (this.productService.products.length !== 0) {
       return;
     }
     this.fetchData();
 
   }
-  fetchData(){
-    this.productSub = this.productService.getAllProducts().subscribe(() => {
-      this.productSub.unsubscribe();
-    }, error => {
-      this.productSub.unsubscribe();
-      if (error['status'] === 401){
-        return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }
-      if (error['statusText'] == "Unknown Error") {
-        return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      } else {
-        return this._snackBar.open(error, 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }
-    });
 
+  fetchData() {
+    this.productSub = this.productService.getAllProducts().subscribe({
+      error: err => {
+        if (err['status'] === 401) {
+          return this.productService.errorHandler("Error 402: Not authorized");
+        } else if (err['statusText'] === "Unknown Error") {
+          return this.productService.errorHandler("Error 404: Not found");
+        } else this.productService.errorHandler(err);
+      }
+    })
   }
+
   onAddToCart(product: Product) {
     this.productService.cart.push(product)
     this.productService.cart$.next(this.productService.cart.slice());
+  }
+
+  ngOnDestroy(): void {
+    this.productSub.unsubscribe();
   }
 }

@@ -36,12 +36,14 @@ export class SigninComponent implements OnInit {
             horizontalPosition: 'right'
           });
           snackBarRef.afterDismissed().subscribe(() => {
+            this.loginSubscription.unsubscribe();
             this.router.navigate(['/shop'])
           });
         },
         error: err => {
+          this.loginSubscription.unsubscribe();
           if (err['status'] === 401) {
-            return this.authService.errorHandler("Error 402: Not authorized");
+            return this.authService.errorHandler("Error 401: Not authorized");
           } else if (err['statusText'] === "Unknown Error") {
             return this.authService.errorHandler("Error 404: Not found");
           }

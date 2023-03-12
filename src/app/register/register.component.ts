@@ -43,10 +43,12 @@ export class RegisterComponent implements OnInit {
           horizontalPosition: 'right'
         });
         snackBarRef.afterDismissed().subscribe(() => {
+          this.authSub.unsubscribe();
           this.router.navigate(['/shop'])
         });
       },
       error: err => {
+        this.authSub.unsubscribe();
         if (err['status'] === 401) {
           return this.authService.errorHandler("Error 402: Not authorized");
         } else if (err['statusText'] === "Unknown Error") {

@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {catchError, map, of, Subscription, tap, throwError} from "rxjs";
+import {catchError, map, of, Subject, Subscription, tap, throwError} from "rxjs";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
 import {User} from "../models/user.model";
@@ -12,6 +12,7 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
   providedIn: "root"
 })
 export class AuthService {
+  infoSub: Subscription;
 
   constructor(private http: HttpClient,
               private userService: UserService,
@@ -19,7 +20,7 @@ export class AuthService {
   }
 
   registerHandler(user: User) {
-    return this.http.post(environment.apiKey + 'auth/register', user)
+    return this.http.post<HttpClient>(environment.apiKey + 'auth/register', user)
       .pipe(map(data => {
         const resData = new ApiResponse(
           data['code'],
@@ -27,8 +28,12 @@ export class AuthService {
           data['message'])
         if (resData.code === 'ACCEPTED') {
           this.userService.setJWT(resData.message);
-          this.infoHandler().subscribe({
+          this.infoSub = this.infoHandler().subscribe({
+            next: () => {
+              this.infoSub.unsubscribe();
+            },
             error: (err) => {
+              this.infoSub.unsubscribe();
               if (err['status'] === 401) {
                 return this.errorHandler("unauth");
               } else if (err['status'] === "Unknown Error") {
@@ -41,7 +46,6 @@ export class AuthService {
         }
       }));
   }
-
 
 
   login(email: string, password: string) {
@@ -61,9 +65,9 @@ export class AuthService {
             this.infoHandler().subscribe({
               error: (err) => {
                 if (err['status'] === 401) {
-                  return this.errorHandler("unauth");
+                  return this.errorHandler("Error 401: Not authorized");
                 } else if (err['status'] === "Unknown Error") {
-                  return this.errorHandler("notfound");
+                  return this.errorHandler("Error 404: Not found");
                 }
               }
             })
