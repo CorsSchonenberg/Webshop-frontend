@@ -18,11 +18,24 @@ export class AuthService {
               private _snackBar: MatSnackBar) {
   }
 
-  registerHandler() {
-    return this.http.post(environment.apiKey + 'auth/register', this.userService.getUser())
+  registerHandler(user: User) {
+    return this.http.post(environment.apiKey + 'auth/register', user)
       .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
-          this.userService.setJWT(data['message']);
+        const resData = new ApiResponse(
+          data['code'],
+          data['payload'],
+          data['message'])
+        if (resData.code === 'ACCEPTED') {
+          this.userService.setJWT(resData.message);
+          this.infoHandler().subscribe({
+            error: (err) => {
+              if (err['status'] === 401) {
+                return this.errorHandler("unauth");
+              } else if (err['status'] === "Unknown Error") {
+                return this.errorHandler("notfound");
+              }
+            }
+          })
         } else {
           throw new Error(data['message'])
         }
@@ -30,9 +43,10 @@ export class AuthService {
   }
 
 
+
   login(email: string, password: string) {
     return this.http
-      .post(environment.apiKey + 'auth/login', {
+      .post<HttpClient>(environment.apiKey + 'auth/login', {
           email,
           password
         }
@@ -61,7 +75,7 @@ export class AuthService {
 
   infoHandler() {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get(environment.apiKey + 'auth/info',
+    return this.http.get<HttpClient>(environment.apiKey + 'auth/info',
       {
         headers: header
       }).pipe(
@@ -86,7 +100,6 @@ export class AuthService {
   }
 
   errorHandler(message: string) {
-    console.log("hi")
     return this._snackBar.open(message, 'Oh no..', {
       duration: 3000,
       horizontalPosition: 'right'

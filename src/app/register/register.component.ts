@@ -27,66 +27,34 @@ export class RegisterComponent implements OnInit {
               private nextIdService: NextidService) {
   }
 
-  onSubmit() {
-    this.userSub = this.nextIdService.getNextUserId().subscribe(data => {
-      this.newUserId = data;
-      const user = new User(
-        this.newUserId,
-        this.signupForm.value.email,
-        this.signupForm.value.password,
-        false,
-        this.signupForm.value.address
-      );
-      this.userService.setUser(user);
-      this.authSub = this.authService.registerHandler().subscribe(() => {
-        this.authSub.unsubscribe();
-        this.router.navigate(['/shop'])
-        return this._snackBar.open('Registering successful!', 'Nice!', {
-          duration: 3000,
+  onSubmit(): void {
+    const user = new User(
+      this.newUserId,
+      this.signupForm.value.email,
+      this.signupForm.value.password,
+      false,
+      this.signupForm.value.address
+    );
+    delete user.id;
+    this.authSub = this.authService.registerHandler(user).subscribe({
+      next: () => {
+        let snackBarRef = this._snackBar.open("Succesfully logged in!", 'Nice!', {
+          duration: 1000,
           horizontalPosition: 'right'
         });
-      }, (error) => {
-        if (error['status'] === 401){
-          return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
-        }
-        if (error['statusText'] == "Unknown Error"){
-          return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
-        }else {
-          return this._snackBar.open(error, 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
-        }
-      })
-      this.userSub.unsubscribe();
-    }, (error) => {
-      if (error['status'] === 401){
-        return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.router.navigate(['/shop'])
         });
-      }
-      if (error['statusText'] == "Unknown Error"){
-        return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }else {
-        return this._snackBar.open(error, 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-        alert(error)
+      },
+      error: err => {
+        if (err['status'] === 401) {
+          return this.authService.errorHandler("Error 402: Not authorized");
+        } else if (err['statusText'] === "Unknown Error") {
+          return this.authService.errorHandler("Error 404: Not found");
+        } else this.authService.errorHandler(err);
       }
     })
   }
-
 
   ngOnInit(): void {
 
