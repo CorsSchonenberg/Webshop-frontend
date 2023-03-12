@@ -24,66 +24,30 @@ export class SigninComponent implements OnInit {
               private _snackBar: MatSnackBar) {
   }
 
-  onSubmit() {
-    let credentials = {
-      email: this.signinForm.value.email,
-      password: this.signinForm.value.password
-    };
-    this.loginSubscription = this.authService.loginHandler(credentials).subscribe(() => {
-      this.infoSubscription = this.authService.infoHandler().subscribe(data => {
-        const user = new User(
-          data.id,
-          data.email,
-          data.password,
-          data.admin,
-          data.address
-        );
-        this.userService.setUser(user);
-        this.infoSubscription.unsubscribe();
-        this.router.navigate(['/shop'])
-        return this._snackBar.open("Succesfully logged in!", 'Nice!', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }, error => {
-        if (error['status'] === 401){
-          return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-            duration: 3000,
+
+  onSubmit(): void {
+    this.loginSubscription = this.authService.login(
+      this.signinForm.value.email,
+      this.signinForm.value.password)
+      .subscribe({
+        next: () => {
+          let snackBarRef = this._snackBar.open("Succesfully logged in!", 'Nice!', {
+            duration: 1000,
             horizontalPosition: 'right'
           });
+          snackBarRef.afterDismissed().subscribe(() => {
+            this.router.navigate(['/shop'])
+          });
+        },
+        error: err => {
+          if (err['status'] === 401) {
+            return this.authService.errorHandler("Error 402: Not authorized");
+          } else if (err['statusText'] === "Unknown Error") {
+            return this.authService.errorHandler("Error 404: Not found");
+          }
+          else this.authService.errorHandler(err);
         }
-        if (error['statusText'] == "Unknown Error") {
-          return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
-        } else {
-          return this._snackBar.open(error, 'Oh no..', {
-            duration: 3000,
-            horizontalPosition: 'right'
-          });
-        }
-      });
-      this.loginSubscription.unsubscribe();
-    }, error => {
-      if (error['status'] === 401){
-        return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }
-      if (error['statusText'] == "Unknown Error") {
-        return this._snackBar.open('Error: 404 Not Found', 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      } else {
-        return this._snackBar.open(error, 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }
-    });
+      })
   }
 
 
