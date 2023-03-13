@@ -40,7 +40,8 @@ import { AlertComponent } from './alert/alert.component';
     MatIconModule,
     MatSnackBarModule,
     MatSelectModule,
-    HeaderComponent
+    HeaderComponent,
+    AlertComponent
   ]
 })
 export class SharedModule {

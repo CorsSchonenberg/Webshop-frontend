@@ -1,4 +1,5 @@
 <app-header></app-header>
+<app-alert (close)="onPress()" *ngIf="loadAlert" [callbackFunction]="onLogin"  [message]="'Log in to Add to Cart!'"></app-alert>
 
 
 <div class="flex">

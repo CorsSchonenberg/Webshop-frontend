@@ -3,6 +3,8 @@ import {ProductService} from "../shared/product.service";
 import {Product} from "../shared/models/product.model";
 import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {UserService} from "../shared/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-shop',
@@ -12,9 +14,12 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class ShopComponent implements OnDestroy, OnInit {
   productSub: Subscription;
   products: Product[] = this.productService.products;
+  loadAlert: boolean = false;
 
   constructor(private productService: ProductService,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private userService: UserService,
+              private router: Router) {
   }
 
 
@@ -38,6 +43,9 @@ export class ShopComponent implements OnDestroy, OnInit {
   }
 
   onAddToCart(product: Product) {
+    if (this.userService.getUser() !== null) {
+      this.loadAlert = true;
+    }
     this.productService.cart.push(product)
     this.productService.cart$.next(this.productService.cart.slice());
   }
@@ -46,6 +54,12 @@ export class ShopComponent implements OnDestroy, OnInit {
     if (this.productSub){
       this.productSub.unsubscribe();
     }
+  }
+  onPress(): void{
+    this.loadAlert = !this.loadAlert;
+  }
 
+  onLogin(): void{
+    this.router.navigate(['/signin'])
   }
 }
