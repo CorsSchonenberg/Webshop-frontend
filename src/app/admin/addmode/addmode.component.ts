@@ -28,56 +28,22 @@ export class AddmodeComponent implements OnInit {
   }
 
   onSubmit():void{
-    this.nextIdSub = this.nextIdService.getNextProductId().subscribe(data => {
-     this.productSub = this.productService.postProduct(new Product(
-        data,
-        this.addForm.value.url,
-        this.addForm.value.price,
-        this.addForm.value.name)
-      ).subscribe( () => {
-       this.productSub.unsubscribe()
-       this._snackBar.open('New product has been added to shop', 'Nice!', {
-         duration: 3000,
-         horizontalPosition: 'right'
-       });
-       this.addForm.resetForm();
-     }, (error) => {
-       if (error['status'] === 401){
-         return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-           duration: 3000,
-           horizontalPosition: 'right'
-         });
-       }
-       if (error['statusText'] == "Unknown Error") {
-         return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-           duration: 3000,
-           horizontalPosition: 'right'
-         });
-       } else {
-         return this._snackBar.open(error, 'Oh no..', {
-           duration: 3000,
-           horizontalPosition: 'right'
-         });
-       }
-     })
-    }, (error) => {
-      if (error['status'] === 401){
-        return this._snackBar.open("Error: 401 Unauthorized", 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }
-      if (error['statusText'] == "Unknown Error") {
-        return this._snackBar.open("Error: 404 Not Found", 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      } else {
-        return this._snackBar.open(error, 'Oh no..', {
-          duration: 3000,
-          horizontalPosition: 'right'
-        });
-      }
-    })
+    let product = new Product(
+      null,
+      this.addForm.value.url,
+      this.addForm.value.price,
+      this.addForm.value.name)
+    delete product.id;
+
+    this.productSub = this.productService.postProduct(product).subscribe({next: () => {
+        this.productSub.unsubscribe();
+      }, error: err => {
+        this.productSub.unsubscribe();
+        if (err['status'] === 401) {
+          return this.productService.errorHandler("Error 401: Not authorized");
+        } else if (err['statusText'] === "Unknown Error") {
+          return this.productService.errorHandler("Error 404: Not found");
+        } else this.productService.errorHandler(err);
+      }})
   }
 }

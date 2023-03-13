@@ -56,9 +56,13 @@ export class ProductService {
       headers: header
     })
       .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
+        const resData = new ApiResponse(
+          data['code'],
+          data['payload'],
+          data['message'])
+        if (resData.code === 'ACCEPTED') {
         } else {
-          throw new Error(data['message'])
+          throw new Error(resData.message)
         }
       }));
   }
@@ -69,9 +73,13 @@ export class ProductService {
       headers: header
     })
       .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
+        const resData = new ApiResponse(
+          data['code'],
+          data['payload'],
+          data['message'])
+        if (resData.code === 'ACCEPTED') {
         } else {
-          throw new Error(data['message'])
+          throw new Error(resData.message)
         }
       }));
   }
@@ -82,9 +90,13 @@ export class ProductService {
       headers: header
     })
       .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
+        const resData = new ApiResponse(
+          data['code'],
+          data['payload'],
+          data['message'])
+        if (resData.code === 'ACCEPTED') {
         } else {
-          throw new Error(data['message'])
+          throw new Error(resData.message)
         }
       }));
   }

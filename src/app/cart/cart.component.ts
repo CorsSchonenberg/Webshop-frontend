@@ -143,9 +143,8 @@ export class CartComponent implements OnInit {
           }
           this.newOrderSub.unsubscribe();
         }, error: err => {
-          console.log(err)
           if (err['status'] === 401) {
-            return this.orderService.errorHandler("Error 402: Not authorized");
+            return this.orderService.errorHandler("Error 401: Not authorized");
           } else if (err['statusText'] === "Unknown Error") {
             return this.orderService.errorHandler("Error 404: Not found");
           } else this.orderService.errorHandler(err);

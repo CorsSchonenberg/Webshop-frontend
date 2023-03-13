@@ -29,12 +29,12 @@ export class ShopComponent implements OnInit, OnDestroy {
     this.productSub = this.productService.getAllProducts().subscribe({
       error: err => {
         if (err['status'] === 401) {
-          return this.productService.errorHandler("Error 402: Not authorized");
+          return this.productService.errorHandler("Error 401: Not authorized");
         } else if (err['statusText'] === "Unknown Error") {
           return this.productService.errorHandler("Error 404: Not found");
         } else this.productService.errorHandler(err);
       }
-    })
+    });
   }
 
   onAddToCart(product: Product) {
@@ -43,6 +43,9 @@ export class ShopComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.productSub.unsubscribe();
+    if (this.productSub){
+      this.productSub.unsubscribe();
+    }
+
   }
 }

@@ -50,7 +50,7 @@ export class RegisterComponent implements OnInit {
       error: err => {
         this.authSub.unsubscribe();
         if (err['status'] === 401) {
-          return this.authService.errorHandler("Error 402: Not authorized");
+          return this.authService.errorHandler("Error 401: Not authorized");
         } else if (err['statusText'] === "Unknown Error") {
           return this.authService.errorHandler("Error 404: Not found");
         } else this.authService.errorHandler(err);
