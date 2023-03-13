@@ -43,9 +43,11 @@ export class ShopComponent implements OnDestroy, OnInit {
   }
 
   onAddToCart(product: Product) {
-    if (this.userService.getUser() !== null) {
+    if (this.userService.getUser() === null) {
       this.loadAlert = true;
+      return;
     }
+    this.loadAlert = false;
     this.productService.cart.push(product)
     this.productService.cart$.next(this.productService.cart.slice());
   }
