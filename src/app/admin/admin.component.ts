@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Product} from "../models/product.model";
-import {ProductService} from "../service/product.service";
+import {ProductService} from "../shared/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Router} from "@angular/router";
 

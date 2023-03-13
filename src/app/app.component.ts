@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {OrderService} from "./service/order.service";
+import {OrderService} from "./shared/order.service";
 import {Order} from "./models/order.model";
-import {PromocodeService} from "./service/promocode.service";
+import {PromocodeService} from "./shared/promocode.service";
 import {PromoCode} from "./models/promocode.model";
-import {ProductService} from "./service/product.service";
+import {ProductService} from "./shared/product.service";
 import {Product} from "./models/product.model";
 
 @Component({

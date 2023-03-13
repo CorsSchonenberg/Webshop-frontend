@@ -1,8 +1,8 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {AdminComponent} from "../admin.component";
 import {NgForm} from "@angular/forms";
-import {NextidService} from "../../service/nextid.service";
-import {ProductService} from "../../service/product.service";
+import {NextidService} from "../../shared/nextid.service";
+import {ProductService} from "../../shared/product.service";
 import {Subscription} from "rxjs";
 import {Product} from "../../models/product.model";
 import {MatSnackBar} from "@angular/material/snack-bar";

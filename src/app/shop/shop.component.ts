@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {ProductService} from "../service/product.service";
+import {ProductService} from "../shared/product.service";
 import {Product} from "../models/product.model";
 import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";

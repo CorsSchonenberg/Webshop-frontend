@@ -24,6 +24,7 @@ import { CartComponent } from './cart/cart.component';
 import { AdminComponent } from './admin/admin.component';
 import { AddmodeComponent } from './admin/addmode/addmode.component';
 import { EditmodeComponent } from './admin/editmode/editmode.component';
+import {SharedModule} from "./shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -41,21 +42,11 @@ import { EditmodeComponent } from './admin/editmode/editmode.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatNativeDateModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
     FormsModule,
-    MatDialogModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    HttpClientModule
+    HttpClientModule,
+    SharedModule
+
+
   ],
   providers: [],
   bootstrap: [AppComponent]

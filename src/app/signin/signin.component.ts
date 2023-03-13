@@ -2,8 +2,8 @@ import {Component, OnInit, ViewChild} from '@angular/core';
 import {Subscription} from "rxjs";
 import {NgForm} from "@angular/forms";
 import {Router} from "@angular/router";
-import {UserService} from "../service/user.service";
-import {AuthService} from "../service/auth.service";
+import {UserService} from "../shared/user.service";
+import {AuthService} from "../shared/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../models/user.model";
 

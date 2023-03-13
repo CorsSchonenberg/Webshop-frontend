@@ -1,11 +1,11 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {ProductService} from "../service/product.service";
+import {ProductService} from "../shared/product.service";
 import {Product} from "../models/product.model";
 import {Cart} from "../models/Cart.model";
-import {OrderService} from "../service/order.service";
+import {OrderService} from "../shared/order.service";
 import {Order} from "../models/order.model";
-import {NextidService} from "../service/nextid.service";
-import {UserService} from "../service/user.service";
+import {NextidService} from "../shared/nextid.service";
+import {UserService} from "../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Subscription} from "rxjs";
 

@@ -7,8 +7,8 @@ import {ShopComponent} from "./shop/shop.component";
 import {CartComponent} from "./cart/cart.component";
 import {AdminComponent} from "./admin/admin.component";
 import {EditmodeComponent} from "./admin/editmode/editmode.component";
-import {AuthGuard} from "./service/auth.guard";
-import {AdminGuard} from "./service/admin.guard";
+import {AuthGuard} from "./shared/auth.guard";
+import {AdminGuard} from "./shared/admin.guard";
 
 const routes: Routes = [
   {path: '', component: StartComponent},
