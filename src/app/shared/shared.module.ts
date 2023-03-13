@@ -10,10 +10,12 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {HeaderComponent} from "../header/header.component";
 import {RouterModule} from "@angular/router";
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
+    AlertComponent,
 
   ],
   imports: [

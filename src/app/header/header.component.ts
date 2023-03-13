@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {UserService} from "../shared/user.service";
 import {ProductService} from "../shared/product.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -12,10 +13,12 @@ export class HeaderComponent implements OnInit{
   public cartNumber: number = 0;
   public isAdmin: boolean = false;
   public isAuthenticated: boolean;
+  public loadAlert: boolean = false;
 
 
   constructor(private userService: UserService,
-              private productService: ProductService) {
+              private productService: ProductService,
+              private router: Router) {
     productService.cart$.subscribe(data => {
         this.cartNumber = data.length;
       }, error => {
@@ -23,11 +26,15 @@ export class HeaderComponent implements OnInit{
       }
     )
   }
+  onPress(){
+    this.loadAlert = !this.loadAlert;
+  }
 
   onLogOut(){
     this.userService.destroyJWT();
     this.userService.destroyUser();
     this.isAuthenticated = false;
+    this.router.navigate(['/signin'])
   }
   ngOnInit() {
     if (this.userService.getUser() !== null){
