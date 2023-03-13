@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {OrderService} from "./shared/order.service";
-import {Order} from "./models/order.model";
+import {Order} from "./shared/models/order.model";
 import {PromocodeService} from "./shared/promocode.service";
-import {PromoCode} from "./models/promocode.model";
+import {PromoCode} from "./shared/models/promocode.model";
 import {ProductService} from "./shared/product.service";
-import {Product} from "./models/product.model";
+import {Product} from "./shared/models/product.model";
 
 @Component({
   selector: 'app-root',

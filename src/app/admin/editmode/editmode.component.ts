@@ -4,7 +4,7 @@ import {Subscription} from "rxjs";
 import {NextidService} from "../../shared/nextid.service";
 import {ProductService} from "../../shared/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Product} from "../../models/product.model";
+import {Product} from "../../shared/models/product.model";
 
 @Component({
   selector: 'app-editmode',

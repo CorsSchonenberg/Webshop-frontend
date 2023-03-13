@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {ProductService} from "../shared/product.service";
-import {Product} from "../models/product.model";
+import {Product} from "../shared/models/product.model";
 import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
@@ -9,7 +9,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
   templateUrl: './shop.component.html',
   styleUrls: ['./shop.component.scss']
 })
-export class ShopComponent implements OnInit, OnDestroy {
+export class ShopComponent implements OnDestroy, OnInit {
   productSub: Subscription;
   products: Product[] = this.productService.products;
 
@@ -17,12 +17,12 @@ export class ShopComponent implements OnInit, OnDestroy {
               private _snackBar: MatSnackBar) {
   }
 
-  ngOnInit(): void {
+
+  ngOnInit() {
     if (this.productService.products.length !== 0) {
       return;
     }
     this.fetchData();
-
   }
 
   fetchData() {

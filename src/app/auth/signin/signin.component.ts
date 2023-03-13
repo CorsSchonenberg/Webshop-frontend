@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {UserService} from "../../shared/user.service";
 import {AuthService} from "../../shared/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {User} from "../../models/user.model";
+import {User} from "../../shared/models/user.model";
 
 @Component({
   selector: 'app-signin',
@@ -37,7 +37,7 @@ export class SigninComponent implements OnInit {
           });
           snackBarRef.afterDismissed().subscribe(() => {
             this.loginSubscription.unsubscribe();
-            this.router.navigate(['/shop'])
+            this.router.navigate(['/'])
           });
         },
         error: err => {

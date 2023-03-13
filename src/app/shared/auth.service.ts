@@ -3,8 +3,8 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {catchError, map, of, Subject, Subscription, tap, throwError} from "rxjs";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
-import {User} from "../models/user.model";
-import {ApiResponse} from "../models/ApiResponse.model";
+import {User} from "./models/user.model";
+import {ApiResponse} from "./models/ApiResponse.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {error} from "@angular/compiler-cli/src/transformers/util";
 

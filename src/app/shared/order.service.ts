@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Order} from "../models/order.model";
+import {Order} from "./models/order.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {map} from "rxjs";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
-import {ApiResponse} from "../models/ApiResponse.model";
+import {ApiResponse} from "./models/ApiResponse.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({

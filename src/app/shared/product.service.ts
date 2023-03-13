@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {Product} from "../models/product.model";
-import {BehaviorSubject, map, Subject} from "rxjs";
-import {PromoCode} from "../models/promocode.model";
+import {Product} from "./models/product.model";
+import {BehaviorSubject, map, Subject, tap} from "rxjs";
+import {PromoCode} from "./models/promocode.model";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
-import {ApiResponse} from "../models/ApiResponse.model";
+import {ApiResponse} from "./models/ApiResponse.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
@@ -24,10 +24,7 @@ export class ProductService {
   }
 
   public getAllProducts() {
-    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get(environment.apiKey + 'product', {
-      headers: header
-    })
+    return this.http.get(environment.apiKey + 'product')
       .pipe(map(data => {
         const resData = new ApiResponse(
           data['code'],

@@ -8,9 +8,10 @@ import {ProductService} from "../shared/product.service";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit{
-  collapsed = true;
+  collapsed: boolean = true;
   public cartNumber: number = 0;
-  public isAdmin = false;
+  public isAdmin: boolean = false;
+  public isAuthenticated: boolean;
 
 
   constructor(private userService: UserService,
@@ -26,11 +27,13 @@ export class HeaderComponent implements OnInit{
   onLogOut(){
     this.userService.destroyJWT();
     this.userService.destroyUser();
+    this.isAuthenticated = false;
   }
   ngOnInit() {
-    if (this.userService.getUser() === undefined){
-      return;
+    if (this.userService.getUser() !== null){
+      this.isAuthenticated = true;
+      this.isAdmin = this.userService.getUser().admin;
     }
-    this.isAdmin = this.userService.getUser().admin;
+
   }
 }

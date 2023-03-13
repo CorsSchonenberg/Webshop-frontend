@@ -4,7 +4,7 @@ import {NgForm} from "@angular/forms";
 import {NextidService} from "../../shared/nextid.service";
 import {ProductService} from "../../shared/product.service";
 import {Subscription} from "rxjs";
-import {Product} from "../../models/product.model";
+import {Product} from "../../shared/models/product.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({

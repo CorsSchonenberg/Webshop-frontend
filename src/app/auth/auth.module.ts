@@ -15,6 +15,7 @@ import {RouterModule} from "@angular/router";
     SharedModule,
     CommonModule,
     FormsModule,
+    RouterModule
   ],
   exports: [
     SigninComponent,

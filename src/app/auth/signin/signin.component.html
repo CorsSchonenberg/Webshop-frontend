@@ -1,4 +1,3 @@
-<button class="ripple custom" id="goBackButton" routerLink="/">Go Back</button>
 <div class="container">
   <section>
     <div class="row">
@@ -36,6 +35,11 @@
                     [disabled]="!f.valid"
                     mat-button>
               Sign In
+            </button>
+            <button class="ripple custom submit-button"
+                    mat-button
+                    routerLink="/register">
+              register Here
             </button>
           </div>
         </div>

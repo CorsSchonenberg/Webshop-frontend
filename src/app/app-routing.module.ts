@@ -9,12 +9,12 @@ import {AdminComponent} from "./admin/admin.component";
 import {EditmodeComponent} from "./admin/editmode/editmode.component";
 import {AuthGuard} from "./shared/auth.guard";
 import {AdminGuard} from "./shared/admin.guard";
+import {ShopResolverService} from "./shared/shop-resolver.service";
 
 const routes: Routes = [
-  {path: '', component: StartComponent},
+  {path: '', component: ShopComponent, resolve: {products: ShopResolverService}},
   {path: 'signin', component: SigninComponent},
   {path: 'register', component: RegisterComponent},
-  {path: 'shop', component: ShopComponent, canActivate: [AuthGuard]},
   {path: 'cart', component: CartComponent, canActivate: [AuthGuard]},
   {path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard]},
   {path: 'edit', component: EditmodeComponent, canActivate: [AuthGuard]},

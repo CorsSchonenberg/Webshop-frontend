@@ -11,6 +11,8 @@ import { CartComponent } from './cart/cart.component';
 import {SharedModule} from "./shared/shared.module";
 import {AuthModule} from "./auth/auth.module";
 import {AdminModule} from "./admin/admin.module";
+import {RouterModule} from "@angular/router";
+import {ShopResolverService} from "./shared/shop-resolver.service";
 
 @NgModule({
   declarations: [
@@ -27,6 +29,7 @@ import {AdminModule} from "./admin/admin.module";
     SharedModule,
     AuthModule,
     AdminModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]
