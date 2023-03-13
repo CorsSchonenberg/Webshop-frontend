@@ -6,8 +6,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import { StartComponent } from './start/start.component';
-import { SigninComponent } from './signin/signin.component';
-import { RegisterComponent } from './register/register.component';
+import { SigninComponent } from './auth/signin/signin.component';
+import { RegisterComponent } from './auth/register/register.component';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule} from "@angular/forms";
 import {MatNativeDateModule} from "@angular/material/core";
@@ -25,13 +25,13 @@ import { AdminComponent } from './admin/admin.component';
 import { AddmodeComponent } from './admin/addmode/addmode.component';
 import { EditmodeComponent } from './admin/editmode/editmode.component';
 import {SharedModule} from "./shared/shared.module";
+import {AuthModule} from "./auth/auth.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     StartComponent,
-    SigninComponent,
-    RegisterComponent,
+
     ShopComponent,
     HeaderComponent,
     CartComponent,
@@ -44,7 +44,8 @@ import {SharedModule} from "./shared/shared.module";
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    SharedModule
+    SharedModule,
+    AuthModule
 
 
   ],

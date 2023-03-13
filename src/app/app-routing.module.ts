@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {StartComponent} from "./start/start.component";
-import {SigninComponent} from "./signin/signin.component";
-import {RegisterComponent} from "./register/register.component";
+import {SigninComponent} from "./auth/signin/signin.component";
+import {RegisterComponent} from "./auth/register/register.component";
 import {ShopComponent} from "./shop/shop.component";
 import {CartComponent} from "./cart/cart.component";
 import {AdminComponent} from "./admin/admin.component";
