@@ -8,10 +8,13 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatIconModule} from "@angular/material/icon";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
-import {CommonModule} from "@angular/common";
-import {FormsModule} from "@angular/forms";
+import {HeaderComponent} from "../header/header.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
+  declarations: [
+    HeaderComponent
+  ],
   imports: [
     MatNativeDateModule,
     BrowserAnimationsModule,
@@ -22,6 +25,7 @@ import {FormsModule} from "@angular/forms";
     MatIconModule,
     MatSnackBarModule,
     MatSelectModule,
+    RouterModule,
   ],
   exports: [
     MatNativeDateModule,
@@ -33,6 +37,7 @@ import {FormsModule} from "@angular/forms";
     MatIconModule,
     MatSnackBarModule,
     MatSelectModule,
+    HeaderComponent
   ]
 })
 export class SharedModule {
