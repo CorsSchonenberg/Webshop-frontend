@@ -17,6 +17,7 @@ export class AddmodeComponent implements OnInit {
   @ViewChild('f') addForm: NgForm;
   nextIdSub: Subscription;
   productSub: Subscription;
+
   constructor(private nextIdService: NextidService,
               private productService: ProductService,
               private _snackBar: MatSnackBar) {
@@ -27,7 +28,8 @@ export class AddmodeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit():void{
+  onSubmit(): void {
+    console.log("Test")
     let product = new Product(
       null,
       this.addForm.value.url,
@@ -35,7 +37,12 @@ export class AddmodeComponent implements OnInit {
       this.addForm.value.name)
     delete product.id;
 
-    this.productSub = this.productService.postProduct(product).subscribe({next: () => {
+    this.productSub = this.productService.postProduct(product).subscribe({
+      next: () => {
+        this._snackBar.open('Your order has been handled', 'Nice!', {
+          duration: 3000,
+          horizontalPosition: 'right'
+        });
         this.productSub.unsubscribe();
       }, error: err => {
         this.productSub.unsubscribe();
@@ -44,6 +51,7 @@ export class AddmodeComponent implements OnInit {
         } else if (err['statusText'] === "Unknown Error") {
           return this.productService.errorHandler("Error 404: Not found");
         } else this.productService.errorHandler(err);
-      }})
+      }
+    })
   }
 }
