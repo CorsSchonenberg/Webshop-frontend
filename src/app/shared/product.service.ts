@@ -7,6 +7,7 @@ import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
 import {ApiResponse} from "./models/ApiResponse.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {Cart} from "./models/Cart.model";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class ProductService {
 
   public cart: Product[] = [];
+  public filteredCart: Cart[];
   public products: Product[] = [];
   public cart$: Subject<Product[]> = new BehaviorSubject<Product[]>([]);
   public productEdit: Product;
@@ -103,5 +105,13 @@ export class ProductService {
       duration: 3000,
       horizontalPosition: 'right'
     });
+  }
+
+  getFilteredCart(): Cart[] {
+    return this.filteredCart;
+  }
+
+  setFilteredCart(newFilteredCart: Cart[]): void {
+    this.filteredCart = newFilteredCart;
   }
 }
