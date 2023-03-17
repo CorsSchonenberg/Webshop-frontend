@@ -16,7 +16,8 @@ export class ProductService {
 
   public cart: Product[] = [];
   public filteredCart: Cart[];
-  public products: Product[] = [];
+  public adminProducts: Product[] = [];
+  public shopProducts: Product[] = [];
   public cart$: Subject<Product[]> = new BehaviorSubject<Product[]>([]);
   public productEdit: Product;
 
@@ -33,16 +34,19 @@ export class ProductService {
           data['payload'],
           data['message'])
         if (resData.code === 'ACCEPTED') {
-          if (this.products.length === 0) {
-            this.products = [];
+          if (this.adminProducts.length === 0) {
+            this.adminProducts = [];
+            this.shopProducts = []
           }
           for (let i = 0; i < resData.payload.length; i++) {
-            this.products.push(new Product(
+            this.adminProducts.push(new Product(
               resData.payload[i].id,
               resData.payload[i].url,
               resData.payload[i].price,
-              resData.payload[i].description))
+              resData.payload[i].description,
+              resData.payload[i].active))
           }
+          this.createFilreredShop()
         } else {
           throw new Error(data['message'])
         }
@@ -114,4 +118,15 @@ export class ProductService {
   setFilteredCart(newFilteredCart: Cart[]): void {
     this.filteredCart = newFilteredCart;
   }
+
+  createFilreredShop(): void {
+    console.log(this.adminProducts)
+    for (let i = 0; i < this.adminProducts.length; i++) {
+      if (this.adminProducts[i].active) {
+        this.shopProducts.push(this.adminProducts[i])
+      }
+    }
+    console.log(this.shopProducts)
+  }
+
 }

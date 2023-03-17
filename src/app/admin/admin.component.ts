@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 export class AdminComponent implements OnInit, OnDestroy {
   addMode: boolean = false
   productSub: Subscription;
-  products: Product[] = this.productService.products;
+  products: Product[] = this.productService.adminProducts;
 
   constructor(private productService: ProductService,
               private _snackBar: MatSnackBar,
@@ -26,7 +26,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   fetchData() {
-    this.productService.products = [];
+    this.productService.adminProducts = [];
     this.productSub = this.productService.getAllProducts().subscribe({
       next: () => {
         this.productSub.unsubscribe();
@@ -44,10 +44,10 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   async onDeleteProduct(product: Product) {
 
-    this.productService.products = [];
+    this.productService.adminProducts = [];
     for (let i = 0; i < this.products.length; i++) {
       if (this.products[i].id === product.id)
-        this.products.splice(i, 1);
+        this.products[i].active = !this.products[i].active
     }
 
     this.productSub = this.productService.deleteProduct(product.id).subscribe({

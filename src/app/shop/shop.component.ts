@@ -13,7 +13,7 @@ import {Router} from "@angular/router";
 })
 export class ShopComponent implements OnDestroy, OnInit {
   productSub: Subscription;
-  products: Product[] = this.productService.products;
+  products: Product[] = this.productService.shopProducts;
   loadAlert: boolean = false;
 
   constructor(private productService: ProductService,
@@ -24,15 +24,21 @@ export class ShopComponent implements OnDestroy, OnInit {
 
 
   ngOnInit() {
-    if (this.productService.products.length !== 0) {
+    if (this.productService.adminProducts.length !== 0) {
       return;
     }
     this.fetchData();
+
+    console.log(this.productService.adminProducts)
+
   }
 
   fetchData() {
     this.productSub = this.productService.getAllProducts().subscribe({
-      error: err => {
+      next: () => {
+        this.productSub.unsubscribe();
+      }
+      , error: err => {
         if (err['status'] === 401) {
           return this.productService.errorHandler("Error 401: Not authorized");
         } else if (err['statusText'] === "Unknown Error") {
@@ -53,15 +59,16 @@ export class ShopComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy(): void {
-    if (this.productSub){
+    if (this.productSub) {
       this.productSub.unsubscribe();
     }
   }
-  onPress(): void{
+
+  onPress(): void {
     this.loadAlert = !this.loadAlert;
   }
 
-  onLogin(): void{
+  onLogin(): void {
     this.router.navigate(['/signin'])
   }
 }

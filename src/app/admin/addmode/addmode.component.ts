@@ -34,7 +34,8 @@ export class AddmodeComponent implements OnInit {
       null,
       this.addForm.value.url,
       this.addForm.value.price,
-      this.addForm.value.name)
+      this.addForm.value.name,
+      true)
     delete product.id;
 
     this.productSub = this.productService.postProduct(product).subscribe({

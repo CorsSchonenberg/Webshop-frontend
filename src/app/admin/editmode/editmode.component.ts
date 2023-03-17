@@ -46,7 +46,8 @@ export class EditmodeComponent implements OnInit {
       this.productService.productEdit.id,
       this.addForm.value.url,
       this.addForm.value.price,
-      this.addForm.value.name)
+      this.addForm.value.name,
+      true)
 
     this.productSub = this.productService.updateProduct(product).subscribe({next: () => {
       this.productSub.unsubscribe();

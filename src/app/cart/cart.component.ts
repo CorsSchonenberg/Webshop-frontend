@@ -38,7 +38,6 @@ export class CartComponent implements OnInit {
 
 
   async onPay() {
-    console.log("inpYa")
     this.filteredCart = this.productService.getFilteredCart();
     let userId: number = this.userService.getUser().id;
     for (let i = 0; i < this.filteredCart.length; i++) {
@@ -80,6 +79,5 @@ export class CartComponent implements OnInit {
     this.productService.cart = [];
     this.productService.cart$.next(this.productService.cart);
     this.productService.setFilteredCart([])
-
   }
 }

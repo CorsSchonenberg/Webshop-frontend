@@ -11,7 +11,7 @@ export class ShopResolverService implements Resolve<any>{
   }
 
   resolve() {
-    this.productService.products = []
+    this.productService.adminProducts = []
     return this.productService.getAllProducts()
       .pipe(
         catchError((e) => {
