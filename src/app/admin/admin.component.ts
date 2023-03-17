@@ -53,7 +53,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.productSub = this.productService.deleteProduct(product.id).subscribe({
       next: () => {
         this.productSub.unsubscribe();
-        this._snackBar.open("Your product has been deleted", 'Nice!', {
+        let message = ""
+
+        if (product.active) {
+          message = "Your product has been added";
+        } else {
+          message = "Your product has been deleted";
+        }
+        this._snackBar.open(message, 'Nice!', {
           duration: 3000,
           horizontalPosition: 'right'
         });

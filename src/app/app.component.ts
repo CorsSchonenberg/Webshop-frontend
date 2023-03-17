@@ -14,8 +14,6 @@ import {Product} from "./shared/models/product.model";
 export class AppComponent{
 
   //to-do: cart functionaliteit opschonen
-  //nieuwe delete function schrijven
-  //lazy loading
   constructor() {
   }
 
