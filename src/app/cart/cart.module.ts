@@ -5,6 +5,7 @@ import {SharedModule} from "../shared/shared.module";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
+import {AuthGuard} from "../shared/auth.guard";
 
 @NgModule({
   declarations: [
@@ -15,7 +16,7 @@ import {RouterModule} from "@angular/router";
     SharedModule,
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule.forChild([{ path: 'cart', component: CartComponent, canActivate: [AuthGuard] }])
   ],
   exports: [
     CartComponent,

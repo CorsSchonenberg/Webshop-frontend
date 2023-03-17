@@ -6,6 +6,9 @@ import {SharedModule} from "../shared/shared.module";
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {AppModule} from "../app.module";
+import {RouterModule} from "@angular/router";
+import {AuthGuard} from "../shared/auth.guard";
+import {AdminGuard} from "../shared/admin.guard";
 
 @NgModule({
   declarations: [
@@ -17,7 +20,11 @@ import {AppModule} from "../app.module";
     SharedModule,
     CommonModule,
     FormsModule,
+    RouterModule.forChild([
+      {path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: 'edit', component: EditmodeComponent, canActivate: [AuthGuard]},
 
+    ])
   ],
   exports: [
     AdminComponent,

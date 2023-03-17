@@ -6,18 +6,17 @@ import { AppComponent } from './app.component';
 import {HttpClientModule} from "@angular/common/http";
 import { StartComponent } from './start/start.component';
 import {FormsModule} from "@angular/forms";
-import { ShopComponent } from './shop/shop.component';
 import {SharedModule} from "./shared/shared.module";
 import {AuthModule} from "./auth/auth.module";
 import {AdminModule} from "./admin/admin.module";
 import {RouterModule} from "@angular/router";
 import {CartModule} from "./cart/cart.module";
+import {ShopModule} from "./shop/shop.module";
 
 @NgModule({
   declarations: [
     AppComponent,
     StartComponent,
-    ShopComponent,
   ],
   imports: [
     BrowserModule,
@@ -28,7 +27,8 @@ import {CartModule} from "./cart/cart.module";
     AuthModule,
     AdminModule,
     CartModule,
-    RouterModule
+    ShopModule,
+    RouterModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

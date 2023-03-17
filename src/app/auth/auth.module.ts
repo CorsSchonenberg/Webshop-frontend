@@ -15,7 +15,9 @@ import {RouterModule} from "@angular/router";
     SharedModule,
     CommonModule,
     FormsModule,
-    RouterModule
+    RouterModule.forChild([
+      {path: 'signin', component: SigninComponent},
+      {path: 'register', component: RegisterComponent},])
   ],
   exports: [
     SigninComponent,
