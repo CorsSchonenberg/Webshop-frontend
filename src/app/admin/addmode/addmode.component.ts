@@ -40,7 +40,7 @@ export class AddmodeComponent implements OnInit {
 
     this.productSub = this.productService.postProduct(product).subscribe({
       next: () => {
-        this._snackBar.open('Your order has been handled', 'Nice!', {
+        this._snackBar.open('Product has been Added!', 'Nice!', {
           duration: 3000,
           horizontalPosition: 'right'
         });

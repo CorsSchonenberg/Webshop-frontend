@@ -16,8 +16,9 @@
               <input class="form-control"
                      type="text"
                      name="name"
+                     id="name"
                      value="name"
-                     ngModel
+                     [(ngModel)]="productValues.name"
                      required
                      #name=ngModel>
               <span class="help-block" *ngIf="!name.valid && name.touched">
@@ -28,8 +29,8 @@
               <input class="form-control"
                      type="text"
                      name="url"
-
-                     ngModel
+                     id="url"
+                     [(ngModel)]="productValues.url"
                      required
                      #url=ngModel>
               <span class="help-block" *ngIf="!url.valid && url.touched">
@@ -40,9 +41,9 @@
               <input class="form-control"
                      type="text"
                      name="price"
-                     ngModel
+                     [(ngModel)]="productValues.price"
                      required
-
+                     id="price"
                      [pattern]="'^[+-]?([0-9]*[.])?[0-9]+'"
                      #price=ngModel>
               <span class="help-block" *ngIf="!price.valid && price.touched">

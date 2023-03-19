@@ -5,6 +5,7 @@ import {NextidService} from "../../shared/nextid.service";
 import {ProductService} from "../../shared/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Product} from "../../shared/models/product.model";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-editmode',
@@ -13,8 +14,8 @@ import {Product} from "../../shared/models/product.model";
 })
 export class EditmodeComponent implements OnInit {
 
-  @ViewChild('f') addForm: NgForm;
-  nextIdSub: Subscription;
+  @ViewChild('f', {static: false}) addForm: NgForm;
+
   productSub: Subscription;
   //productValues = [this.productService.productEdit.description, this.productService.productEdit.url, this.productService.productEdit.price]
   productValues = {
@@ -22,15 +23,18 @@ export class EditmodeComponent implements OnInit {
     price: null,
     url: null,
   }
+
   constructor(private nextIdService: NextidService,
               private productService: ProductService,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private router: Router) {
 
   }
 
 
   ngOnInit(): void {
-    if (this.productService.productEdit === undefined){
+
+    if (this.productService.productEdit === undefined) {
       return;
     }
     this.productValues = {
@@ -38,10 +42,12 @@ export class EditmodeComponent implements OnInit {
       price: this.productService.productEdit.price,
       url: this.productService.productEdit.url,
     }
-    console.log(this.productValues);
+    console.log();
+
+
   }
 
-  onSubmit():void{
+  onSubmit(): void {
     let product = new Product(
       this.productService.productEdit.id,
       this.addForm.value.url,
@@ -49,8 +55,16 @@ export class EditmodeComponent implements OnInit {
       this.addForm.value.name,
       true)
 
-    this.productSub = this.productService.updateProduct(product).subscribe({next: () => {
-      this.productSub.unsubscribe();
+    this.productSub = this.productService.updateProduct(product).subscribe({
+      next: () => {
+        let snackBarRef = this._snackBar.open('Product has been edited!', 'Nice!', {
+          duration: 1000,
+          horizontalPosition: 'right'
+        });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.productSub.unsubscribe();
+          this.router.navigate(['/admin'])
+        });
       }, error: err => {
         this.productSub.unsubscribe();
         if (err['status'] === 401) {
@@ -58,6 +72,7 @@ export class EditmodeComponent implements OnInit {
         } else if (err['statusText'] === "Unknown Error") {
           return this.productService.errorHandler("Error 404: Not found");
         } else this.productService.errorHandler(err);
-      }})
+      }
+    })
   }
 }
