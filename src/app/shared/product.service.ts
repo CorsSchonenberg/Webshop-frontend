@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Product} from "./models/product.model";
-import {BehaviorSubject, map, Subject, tap} from "rxjs";
-import {PromoCode} from "./models/promocode.model";
+import {BehaviorSubject, map, Subject} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
@@ -46,7 +45,7 @@ export class ProductService {
               resData.payload[i].description,
               resData.payload[i].active))
           }
-          this.createFilreredShop()
+          this.createFilteredShop()
         } else {
           throw new Error(data['message'])
         }
@@ -111,22 +110,16 @@ export class ProductService {
     });
   }
 
-  getFilteredCart(): Cart[] {
-    return this.filteredCart;
-  }
 
   setFilteredCart(newFilteredCart: Cart[]): void {
     this.filteredCart = newFilteredCart;
   }
 
-  createFilreredShop(): void {
-    console.log(this.adminProducts)
+  createFilteredShop(): void {
     for (let i = 0; i < this.adminProducts.length; i++) {
       if (this.adminProducts[i].active) {
         this.shopProducts.push(this.adminProducts[i])
       }
     }
-    console.log(this.shopProducts)
   }
-
 }

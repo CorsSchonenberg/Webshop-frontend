@@ -1,12 +1,11 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ProductService} from "../shared/product.service";
-import {Product} from "../shared/models/product.model";
 import {Cart} from "../shared/models/Cart.model";
 import {OrderService} from "../shared/order.service";
 import {Order} from "../shared/models/order.model";
-import {NextidService} from "../shared/nextid.service";
 import {UserService} from "../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 
@@ -16,29 +15,22 @@ import {Router} from "@angular/router";
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  public newId: number;
-  nextIdSub: Subscription;
   newOrderSub: Subscription;
-  public cart: Product[] = this.productService.cart;
-  public showCart: Product[] = [];
   public filteredCart: Cart[] = this.productService.filteredCart;
-  // public totalPrice: number;
 
   constructor(private productService: ProductService,
               private orderService: OrderService,
-              private nextIdService: NextidService,
               private userService: UserService,
               private _snackBar: MatSnackBar,
               private router: Router) {
   }
 
   ngOnInit(): void {
-    // this.calculatePrice();
   }
 
 
   async onPay() {
-    this.filteredCart = this.productService.getFilteredCart();
+    this.filteredCart = this.productService.filteredCart;
     let userId: number = this.userService.getUser().id;
     for (let i = 0; i < this.filteredCart.length; i++) {
       await new Promise(r => setTimeout(r, 250));
@@ -75,9 +67,8 @@ export class CartComponent implements OnInit {
     }
     await new Promise(r => setTimeout(r, 1000));
     this.filteredCart = [];
-    this.cart = []
     this.productService.cart = [];
     this.productService.cart$.next(this.productService.cart);
-    this.productService.setFilteredCart([])
+    this.productService.filteredCart = []
   }
 }

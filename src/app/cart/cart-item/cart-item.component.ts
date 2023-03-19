@@ -18,20 +18,9 @@ export class CartItemComponent implements OnInit {
 
   @Input() cartItem: Cart;
   public priceOutput: number
-  // @Output() priceOutput: EventEmitter<number> = new EventEmitter<number>();
-  //
-  // calculatePrice(): void {
-  //   let count = 0;
-  //   this.priceOutput.emit(count)
-  //   for (let i = 0; i < this.filteredCart.length; i++) {
-  //     count += this.filteredCart[i].Product.price * this.filteredCart[i].amount;
-  //   }
-  //   this.priceOutput.emit(count)
-  // }
 
-  public cart: Product[] = this.productService.cart;
-  public showCart: Product[] = this.cart;
-  public filteredCart: Cart[] = []
+  public products: Product[] = this.productService.cart;
+  public cart: Cart[] = [];
 
 
   constructor(private productService: ProductService,
@@ -46,16 +35,16 @@ export class CartItemComponent implements OnInit {
     this.checkCartNumbers();
     this.getProductAmount();
     this.calculatePrice();
-    this.productService.setFilteredCart(this.filteredCart);
+    this.productService.setFilteredCart(this.cart);
   }
 
   sortCartNumbers(): void {
-    for (let i = 0; i < this.showCart.length; i++) {
-      for (let j = 0; j < (this.showCart.length - i - 1); j++) {
-        if (this.showCart[j].id > this.showCart[j + 1].id) {
-          let temp = this.showCart[j]
-          this.showCart[j] = this.showCart[j + 1]
-          this.showCart[j + 1] = temp
+    for (let i = 0; i < this.products.length; i++) {
+      for (let j = 0; j < (this.products.length - i - 1); j++) {
+        if (this.products[j].id > this.products[j + 1].id) {
+          let temp = this.products[j]
+          this.products[j] = this.products[j + 1]
+          this.products[j + 1] = temp
         }
       }
     }
@@ -64,15 +53,15 @@ export class CartItemComponent implements OnInit {
   getProductAmount(): void {
     let count = 0;
     let amount = 0;
-    for (let i = 0; i < this.showCart.length; i++) {
+    for (let i = 0; i < this.products.length; i++) {
       amount++;
-      if (this.showCart.length - 1 === i) {
-        this.filteredCart[count].amount = amount;
+      if (this.products.length - 1 === i) {
+        this.cart[count].amount = amount;
         count++;
         break;
       }
-      if (this.showCart[i].id !== this.showCart[i + 1].id) {
-        this.filteredCart[count].amount = amount;
+      if (this.products[i].id !== this.products[i + 1].id) {
+        this.cart[count].amount = amount;
         count++;
         amount = 0;
       }
@@ -80,16 +69,16 @@ export class CartItemComponent implements OnInit {
   }
 
   checkCartNumbers(): void {
-    for (let i = 0; i < this.showCart.length; i++) {
-      if (this.filteredCart.length === 0) {
-        this.filteredCart.push(new Cart(this.showCart[i], null));
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.cart.length === 0) {
+        this.cart.push(new Cart(this.products[i], null));
 
       }
-      if (this.showCart.length - 1 === i) {
+      if (this.products.length - 1 === i) {
         return;
       }
-      if (this.showCart[i].id !== this.showCart[i + 1].id) {
-        this.filteredCart.push(new Cart(this.showCart[i + 1], null));
+      if (this.products[i].id !== this.products[i + 1].id) {
+        this.cart.push(new Cart(this.products[i + 1], null));
       }
     }
   }
@@ -97,42 +86,42 @@ export class CartItemComponent implements OnInit {
   calculatePrice(): void {
 
     this.priceOutput = 0;
-    for (let i = 0; i < this.filteredCart.length; i++) {
-      this.priceOutput += this.filteredCart[i].Product.price * this.filteredCart[i].amount;
+    for (let i = 0; i < this.cart.length; i++) {
+      this.priceOutput += this.cart[i].Product.price * this.cart[i].amount;
     }
   }
 
   onAddItem(cartItem: Cart): void {
-    this.cart.push(cartItem.Product);
+    this.products.push(cartItem.Product);
     this.productService.cart$.next(this.productService.cart.slice());
-    for (let i = 0; i < this.filteredCart.length; i++) {
-      if (cartItem.Product.id === this.filteredCart[i].Product.id) {
-        this.filteredCart[i].amount = this.filteredCart[i].amount + 1;
+    for (let i = 0; i < this.cart.length; i++) {
+      if (cartItem.Product.id === this.cart[i].Product.id) {
+        this.cart[i].amount = this.cart[i].amount + 1;
       }
     }
     this.calculatePrice();
-    this.productService.setFilteredCart(this.filteredCart);
+    this.productService.setFilteredCart(this.cart);
   }
 
   onDeleteItem(cartItem: Cart): void {
-    for (let i = 0; i < this.cart.length; i++) {
-      if (this.cart[i].id === cartItem.Product.id) {
-        this.cart.splice(i, 1);
+    for (let i = 0; i < this.products.length; i++) {
+      if (this.products[i].id === cartItem.Product.id) {
+        this.products.splice(i, 1);
         this.productService.cart$.next(this.productService.cart.slice());
         break;
       }
     }
-    for (let i = 0; i < this.filteredCart.length; i++) {
-      if (cartItem.Product.id === this.filteredCart[i].Product.id) {
-        this.filteredCart[i].amount = this.filteredCart[i].amount - 1;
-        if (this.filteredCart[i].amount < 1) {
-          this.filteredCart.splice(i, 1);
+    for (let i = 0; i < this.cart.length; i++) {
+      if (cartItem.Product.id === this.cart[i].Product.id) {
+        this.cart[i].amount = this.cart[i].amount - 1;
+        if (this.cart[i].amount < 1) {
+          this.cart.splice(i, 1);
 
         }
 
       }
     }
-    this.productService.setFilteredCart(this.filteredCart);
+    this.productService.setFilteredCart(this.cart);
     this.calculatePrice();
   }
 }
