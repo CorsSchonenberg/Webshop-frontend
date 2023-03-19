@@ -1,13 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component,  Input, OnInit} from '@angular/core';
 import {Cart} from "../../shared/models/Cart.model";
 import {ProductService} from "../../shared/product.service";
 import {OrderService} from "../../shared/order.service";
-import {NextidService} from "../../shared/nextid.service";
 import {UserService} from "../../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {Subscription} from "rxjs";
 import {Product} from "../../shared/models/product.model";
-import {Order} from "../../shared/models/order.model";
 
 @Component({
   selector: 'app-cart-item',
@@ -25,7 +22,6 @@ export class CartItemComponent implements OnInit {
 
   constructor(private productService: ProductService,
               private orderService: OrderService,
-              private nextIdService: NextidService,
               private userService: UserService,
               private _snackBar: MatSnackBar) {
   }

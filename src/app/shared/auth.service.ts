@@ -1,12 +1,11 @@
 import {Injectable} from "@angular/core";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
-import {catchError, map, of, Subject, Subscription, tap, throwError} from "rxjs";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import { map, Subscription} from "rxjs";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
 import {User} from "./models/user.model";
 import {ApiResponse} from "./models/ApiResponse.model";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Injectable({
   providedIn: "root"

@@ -1,7 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {Subscription} from "rxjs";
-import {NextidService} from "../../shared/nextid.service";
 import {ProductService} from "../../shared/product.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Product} from "../../shared/models/product.model";
@@ -24,7 +23,7 @@ export class EditmodeComponent implements OnInit {
     url: null,
   }
 
-  constructor(private nextIdService: NextidService,
+  constructor(
               private productService: ProductService,
               private _snackBar: MatSnackBar,
               private router: Router) {

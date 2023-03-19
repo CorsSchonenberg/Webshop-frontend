@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import { Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from "../shared/product.service";
 import {Product} from "../shared/models/product.model";
 import {Subscription} from "rxjs";

@@ -1,8 +1,7 @@
 import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, Resolve, RouterStateSnapshot} from "@angular/router";
-import {Product} from "./models/product.model";
+import { Resolve} from "@angular/router";
 import {ProductService} from "./product.service";
-import {catchError, Subscription} from "rxjs";
+import {catchError} from "rxjs";
 
 @Injectable({providedIn: "root"})
 export class ShopResolverService implements Resolve<any>{

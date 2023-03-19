@@ -1,7 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {AdminComponent} from "../admin.component";
 import {NgForm} from "@angular/forms";
-import {NextidService} from "../../shared/nextid.service";
 import {ProductService} from "../../shared/product.service";
 import {Subscription} from "rxjs";
 import {Product} from "../../shared/models/product.model";
@@ -18,7 +16,7 @@ export class AddmodeComponent implements OnInit {
   nextIdSub: Subscription;
   productSub: Subscription;
 
-  constructor(private nextIdService: NextidService,
+  constructor(
               private productService: ProductService,
               private _snackBar: MatSnackBar) {
 

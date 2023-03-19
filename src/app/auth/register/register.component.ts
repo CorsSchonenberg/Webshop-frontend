@@ -6,7 +6,6 @@ import {UserService} from "../../shared/user.service";
 import {AuthService} from "../../shared/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {User} from "../../shared/models/user.model";
-import {NextidService} from "../../shared/nextid.service";
 
 @Component({
   selector: 'app-register',
@@ -23,8 +22,8 @@ export class RegisterComponent implements OnInit {
   constructor(private router: Router,
               private userService: UserService,
               private authService: AuthService,
-              private _snackBar: MatSnackBar,
-              private nextIdService: NextidService) {
+              private _snackBar: MatSnackBar
+  ) {
   }
 
   onSubmit(): void {

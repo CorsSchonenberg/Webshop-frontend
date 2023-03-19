@@ -1,6 +1,5 @@
-import {Injectable, Input} from "@angular/core";
+import {Injectable} from "@angular/core";
 
-import {map} from "rxjs";
 import {HttpClient} from "@angular/common/http";
 import {User} from "./models/user.model";
 
