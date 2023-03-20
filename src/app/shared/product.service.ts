@@ -54,7 +54,7 @@ export class ProductService {
 
   public postProduct(newCode: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.post<HttpClient>(environment.apiKey + 'product/insert', newCode, {
+    return this.http.post<HttpClient>(environment.apiKey + 'product/' + this.userService.getUser().id + '/insert', newCode, {
       headers: header
     })
       .pipe(map(data => {
@@ -71,7 +71,7 @@ export class ProductService {
 
   public deleteProduct(id: number) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.delete<HttpClient>(environment.apiKey + 'product/delete/' + id, {
+    return this.http.delete<HttpClient>(environment.apiKey + 'product/' + this.userService.getUser().id + '/delete/' + id, {
       headers: header
     })
       .pipe(map(data => {
@@ -88,7 +88,7 @@ export class ProductService {
 
   public updateProduct(updatedCode: Object) {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put<HttpClient>(environment.apiKey + 'product/update', updatedCode, {
+    return this.http.put<HttpClient>(environment.apiKey + 'product/' + this.userService.getUser().id + '/update', updatedCode, {
       headers: header
     })
       .pipe(map(data => {

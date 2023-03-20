@@ -1,10 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {OrderService} from "./shared/order.service";
-import {Order} from "./shared/models/order.model";
-import {PromocodeService} from "./shared/promocode.service";
-import {PromoCode} from "./shared/models/promocode.model";
-import {ProductService} from "./shared/product.service";
-import {Product} from "./shared/models/product.model";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -13,10 +7,8 @@ import {Product} from "./shared/models/product.model";
 })
 export class AppComponent{
 
-  //to-do: cart functionaliteit opschonen
+  //to-do:
+  //gehele promocode component maken in front-end
   constructor() {
   }
-
-
 }
-

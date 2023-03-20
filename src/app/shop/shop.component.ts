@@ -28,9 +28,6 @@ export class ShopComponent implements OnDestroy, OnInit {
       return;
     }
     this.fetchData();
-
-    console.log(this.productService.adminProducts)
-
   }
 
   fetchData() {

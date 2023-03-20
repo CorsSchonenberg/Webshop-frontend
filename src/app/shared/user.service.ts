@@ -15,26 +15,26 @@ export class UserService {
   }
 
   setUser(user: User): void {
-    localStorage.setItem('user', JSON.stringify(user));
+    sessionStorage.setItem('user', JSON.stringify(user));
   }
 
   getUser(): User {
-    return JSON.parse(localStorage.getItem('user'));
+    return JSON.parse(sessionStorage.getItem('user'));
   }
 
   getJWT():string {
-    return localStorage.getItem('jwt');
+    return sessionStorage.getItem('jwt');
   }
 
   setJWT(jwt: string): void {
-    localStorage.setItem('jwt', jwt);
+    sessionStorage.setItem('jwt', jwt);
   }
 
   destroyJWT() {
-    localStorage.removeItem('jwt');
+    sessionStorage.removeItem('jwt');
   }
   destroyUser(){
-    localStorage.removeItem('user')
+    sessionStorage.removeItem('user')
   }
 
 }

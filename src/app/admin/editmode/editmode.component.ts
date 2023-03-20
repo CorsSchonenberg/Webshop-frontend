@@ -41,9 +41,6 @@ export class EditmodeComponent implements OnInit {
       price: this.productService.productEdit.price,
       url: this.productService.productEdit.url,
     }
-    console.log();
-
-
   }
 
   onSubmit(): void {
