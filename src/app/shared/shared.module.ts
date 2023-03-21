@@ -11,11 +11,13 @@ import {MatSelectModule} from "@angular/material/select";
 import {HeaderComponent} from "../header/header.component";
 import {RouterModule} from "@angular/router";
 import { AlertComponent } from './alert/alert.component';
+import {DiscountPipe} from "./discount.pipe";
 
 @NgModule({
   declarations: [
     HeaderComponent,
     AlertComponent,
+    DiscountPipe
 
   ],
   imports: [
@@ -41,7 +43,8 @@ import { AlertComponent } from './alert/alert.component';
     MatSnackBarModule,
     MatSelectModule,
     HeaderComponent,
-    AlertComponent
+    AlertComponent,
+    DiscountPipe
   ]
 })
 export class SharedModule {

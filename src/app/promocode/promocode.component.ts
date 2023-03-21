@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-promocode',
@@ -7,20 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PromocodeComponent implements OnInit {
 
-  addMode: boolean = false;
-  buttonTitle: string = "Add Mode +";
-  constructor() { }
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   onAddmode(): void {
-    this.addMode = !this.addMode;
-    if (this.addMode) {
-      this.buttonTitle = "Go Back";
-
-    } else {
-      this.buttonTitle = "Add Mode +";
-    }
+    this.router.navigate(['/promocodeadd'])
   }
 }

@@ -14,11 +14,13 @@ export class PromocodeListComponent implements OnInit {
   constructor(private promoCodeService: PromocodeService) { }
 
   ngOnInit(): void {
+    if (this.promoCodeService.promoCodes.length !== 0) {
+      return;
+    }
     this.fetchPromoCodes();
-    console.log(this.promoCodes)
   }
   fetchPromoCodes(): void {
-    this.promoCodeService.promoCodes = []
+    console.log(this.promoCodes)
     this.promocodeSub = this.promoCodeService.getAllCodes().subscribe({
       next: () => {
         this.promocodeSub.unsubscribe();

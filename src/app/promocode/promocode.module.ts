@@ -9,6 +9,7 @@ import {PromocodeComponent} from "./promocode.component";
 import { PromocodeListComponent } from './promocode-list/promocode-list.component';
 import { PromocodeItemComponent } from './promocode-list/promocode-item/promocode-item.component';
 import { PromocodeAddComponent } from './promocode-add/promocode-add.component';
+import { PromocodeDeleteComponent } from './promocode-list/promocode-item/promocode-delete/promocode-delete.component';
 
 
 
@@ -17,7 +18,8 @@ import { PromocodeAddComponent } from './promocode-add/promocode-add.component';
     PromocodeComponent,
     PromocodeListComponent,
     PromocodeItemComponent,
-    PromocodeAddComponent
+    PromocodeAddComponent,
+    PromocodeDeleteComponent
   ],
   imports: [
     CommonModule,
@@ -25,8 +27,9 @@ import { PromocodeAddComponent } from './promocode-add/promocode-add.component';
     FormsModule,
     RouterModule.forChild([
       {path: 'promocode', component: PromocodeComponent, canActivate: [AuthGuard, AdminGuard]},
+      {path: 'promocodeadd', component: PromocodeAddComponent, canActivate: [AuthGuard, AdminGuard]},
 
-    ])
+    ],)
   ],
   exports: [
     PromocodeComponent

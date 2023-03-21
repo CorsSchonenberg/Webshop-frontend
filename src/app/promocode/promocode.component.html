@@ -2,10 +2,9 @@
 <div class="flex">
   <div class="divtop">
     <p class="subtext">Promocodes</p>
-    <app-promocode-add *ngIf="addMode"></app-promocode-add>-
-    <button class="btn btn-default" (click)="onAddmode()" >{{this.buttonTitle}}</button>
+    <button class="btn btn-default" (click)="onAddmode()" >Add Promocodes &#x271A;</button>
     <div class="grid">
-      <app-promocode-list *ngIf="!addMode"></app-promocode-list>
+      <app-promocode-list></app-promocode-list>
     </div>
   </div>
 </div>

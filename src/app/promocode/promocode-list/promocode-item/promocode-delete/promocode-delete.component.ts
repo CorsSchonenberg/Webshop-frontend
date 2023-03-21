@@ -1,20 +1,17 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {PromoCode} from "../../../shared/models/promocode.model";
-import {PromocodeService} from "../../../shared/promocode.service";
+import {PromocodeService} from "../../../../shared/promocode.service";
+import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs";
 
 @Component({
-  selector: 'app-promocode-item',
-  templateUrl: './promocode-item.component.html',
-  styleUrls: ['./promocode-item.component.scss']
+  selector: 'app-promocode-delete',
+  templateUrl: './promocode-delete.component.html',
+  styleUrls: ['./promocode-delete.component.scss']
 })
-export class PromocodeItemComponent implements OnInit {
-  @Input() promoCode: PromoCode;
-  @Input() index: number;
+export class PromocodeDeleteComponent implements OnInit {
+  @Input() id: number;
   promoCodeSub: Subscription;
-
   constructor(private promoCodeService: PromocodeService,
               private snackBar: MatSnackBar,
               private router: Router,
@@ -22,19 +19,22 @@ export class PromocodeItemComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
   onDelete(): void {
 
-
-    this.promoCodeSub = this.promoCodeService.deleteCode(this.promoCode.id).subscribe({
+    this.promoCodeSub = this.promoCodeService.deleteCode(this.id).subscribe({
       next: () => {
         this.promoCodeSub.unsubscribe();
         this.snackBar.open("The Promocode has been deleted", 'Nice!', {
           duration: 3000,
           horizontalPosition: 'right'
         });
-        this.promoCodeService.promoCodes = [];
-        this.resetPage()
+
+        for (let i = 0; i < this.promoCodeService.promoCodes.length; i++) {
+          if (this.promoCodeService.promoCodes[i].id === i ){
+            this.promoCodeService.promoCodes.splice(i, 1);
+          }
+        }
+        this.resetPage();
       }, error: err => {
         this.promoCodeSub.unsubscribe();
         if (err['status'] === 401) {
@@ -45,7 +45,6 @@ export class PromocodeItemComponent implements OnInit {
       }
     })
   }
-
   resetPage(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.navigate(['/promocode'], {
