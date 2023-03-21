@@ -35,7 +35,8 @@ export class PromocodeService {
             this.promoCodes.push(new PromoCode(
               resData.payload[i].id,
               resData.payload[i].discount,
-              resData.payload[i].code))
+              resData.payload[i].code,
+              resData.payload[i].name,))
           }
         } else {
           throw new Error(resData.message)

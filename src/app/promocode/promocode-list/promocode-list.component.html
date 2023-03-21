@@ -1,1 +1,8 @@
-<p>promocode-list works!</p>
+<div class="row">
+  <div class="col-xs-12">
+    <app-promocode-item
+      *ngFor="let promocodeEl of promoCodes; let i = index"
+      [promoCode]="promocodeEl"
+      [index]="i"></app-promocode-item>
+  </div>
+</div>

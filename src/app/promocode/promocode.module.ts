@@ -3,19 +3,19 @@ import { CommonModule } from '@angular/common';
 import {SharedModule} from "../shared/shared.module";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
-import {AdminComponent} from "../admin/admin.component";
 import {AuthGuard} from "../shared/auth.guard";
 import {AdminGuard} from "../shared/admin.guard";
-import {EditmodeComponent} from "../admin/editmode/editmode.component";
 import {PromocodeComponent} from "./promocode.component";
 import { PromocodeListComponent } from './promocode-list/promocode-list.component';
+import { PromocodeItemComponent } from './promocode-list/promocode-item/promocode-item.component';
 
 
 
 @NgModule({
   declarations: [
     PromocodeComponent,
-    PromocodeListComponent
+    PromocodeListComponent,
+    PromocodeItemComponent
   ],
   imports: [
     CommonModule,

@@ -1,13 +1,4 @@
-body {
-  background-color: white;
-}
-
-h5 {
-  align-content: center;
-  font-weight: bold;
-}
-
-.shop-list-item {
+.code-total-item {
   text-align: center;
   border-bottom: 2px solid #BCBCBC;
   padding: 2px;
@@ -18,7 +9,17 @@ h5 {
   margin-top: 5px;
 }
 
-.shop-list-item li {
+.item-padding {
+  padding-top: 6%;
+
+}
+
+h5 {
+  align-content: center;
+  font-weight: bold;
+}
+
+.code-total-item li {
   margin: auto;
   list-style: none;
   text-align: center;
@@ -31,13 +32,14 @@ li {
   list-style: none;
 }
 
+
 .shop-list-item:hover {
   background-color: #f5f5f5;
 }
 
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-column-gap: 5vh;
 }
 
@@ -47,53 +49,17 @@ li {
 }
 
 
-.custom-button {
-  padding: 12px 6px;
-
-  border: none;
-}
-
-.subtext {
-  padding-bottom: 14px;
-  font-size: 24px;
-}
-
-.divtop {
-  text-align: center;
-  margin: 0;
-  position: absolute;
-  top: 10%;
-  right: 50%;
-  transform: translateX(50%);
-}
-
-img {
-  width: 70%;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.img-grid {
-  margin: 0;
-  width: 49px;
-  height: 49px;
-}
-.padding-item {
-  padding-top: 25px;
-}
-
 @media only screen and (max-width: 1100px) {
+
   h5 {
     font-size: 20px;
   }
-  img {
-    width: 90%;
-  }
+
   .subtext {
     padding-bottom: 16px;
   }
 
-  .shop-list-item {
+  .code-list-item, .code-total-item {
     height: 100px;
     width: 300px;
   }
@@ -108,20 +74,18 @@ img {
 
   .grid {
     display: grid;
-    grid-column-gap: 20px;
+    grid-column-gap: 10px;
     padding-bottom: 20px;
   }
 }
 
 @media only screen and (max-width: 600px) {
-  img {
-    width: 90%;
-  }
+
   .subtext {
     padding-bottom: 14px;
   }
 
-  .shop-list-item {
+  .code-list-item, .code-total-item {
     height: 100px;
     width: 300px;
   }
@@ -145,6 +109,7 @@ img {
     grid-column-gap: 20px;
   }
 }
+
 @media only screen and (max-width: 350px) {
 
   .custom {
@@ -158,10 +123,8 @@ img {
     grid-column-gap: 20px;
   }
 
-  .shop-list-item {
+  .code-list-item, .code-total-item {
     height: 100px;
     width: 200px;
   }
 }
-
-

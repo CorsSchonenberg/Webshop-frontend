@@ -9,15 +9,16 @@ import {Subscription} from "rxjs";
   styleUrls: ['./promocode-list.component.scss']
 })
 export class PromocodeListComponent implements OnInit {
-  promoCodes: PromoCode[];
+  promoCodes: PromoCode[] = this.promoCodeService.promoCodes;
   promocodeSub: Subscription;
   constructor(private promoCodeService: PromocodeService) { }
 
   ngOnInit(): void {
     this.fetchPromoCodes();
+    console.log(this.promoCodes)
   }
   fetchPromoCodes(): void {
-    this.promoCodes = [];
+    this.promoCodeService.promoCodes = []
     this.promocodeSub = this.promoCodeService.getAllCodes().subscribe({
       next: () => {
         this.promocodeSub.unsubscribe();
