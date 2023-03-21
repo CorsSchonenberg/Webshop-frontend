@@ -8,6 +8,7 @@ import {AdminGuard} from "../shared/admin.guard";
 import {PromocodeComponent} from "./promocode.component";
 import { PromocodeListComponent } from './promocode-list/promocode-list.component';
 import { PromocodeItemComponent } from './promocode-list/promocode-item/promocode-item.component';
+import { PromocodeAddComponent } from './promocode-add/promocode-add.component';
 
 
 
@@ -15,7 +16,8 @@ import { PromocodeItemComponent } from './promocode-list/promocode-item/promocod
   declarations: [
     PromocodeComponent,
     PromocodeListComponent,
-    PromocodeItemComponent
+    PromocodeItemComponent,
+    PromocodeAddComponent
   ],
   imports: [
     CommonModule,

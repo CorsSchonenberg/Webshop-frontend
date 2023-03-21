@@ -27,7 +27,6 @@ export class AddmodeComponent implements OnInit {
   }
 
   onSubmit(): void {
-    console.log("Test")
     let product = new Product(
       null,
       this.addForm.value.url,
@@ -35,7 +34,6 @@ export class AddmodeComponent implements OnInit {
       this.addForm.value.name,
       true)
     delete product.id;
-
     this.productSub = this.productService.postProduct(product).subscribe({
       next: () => {
         this._snackBar.open('Product has been Added!', 'Nice!', {
