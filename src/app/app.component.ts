@@ -8,7 +8,8 @@ import {Component} from '@angular/core';
 export class AppComponent{
 
   //to-do:
-  //gehele promocode component maken in front-end
+  //promocode in kunnen vullen bij betaling
+  // promocodes veilig maken in backend
   constructor() {
   }
 }
