@@ -22,7 +22,7 @@ import {AdminGuard} from "../shared/admin.guard";
     FormsModule,
     RouterModule.forChild([
       {path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard]},
-      {path: 'edit', component: EditmodeComponent, canActivate: [AuthGuard]},
+      {path: 'edit', component: EditmodeComponent, canActivate: [AuthGuard, AdminGuard]},
 
     ])
   ],

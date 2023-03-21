@@ -11,6 +11,7 @@
         <li><a routerLink="/">Shop</a></li>
         <li *ngIf="isAuthenticated"> <a routerLink="/cart">Cart ({{cartNumber}})</a></li>
         <li *ngIf="isAdmin"><a routerLink="/admin">Admin</a></li>
+        <li *ngIf="isAdmin"><a routerLink="/promocode">Promocodes</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <li *ngIf="isAuthenticated" ><a (click)="onPress()">Log Out</a></li>

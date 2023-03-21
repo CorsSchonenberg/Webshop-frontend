@@ -4,6 +4,8 @@ import {map} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
+import {ApiResponse} from "./models/ApiResponse.model";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +15,8 @@ export class PromocodeService {
   public promoCodes: PromoCode[] = [];
 
   constructor(private http: HttpClient,
-              private userService: UserService) {
+              private userService: UserService,
+              private snackBar: MatSnackBar) {
   }
 
   public getAllCodes() {
@@ -22,12 +25,20 @@ export class PromocodeService {
       headers: header
     })
       .pipe(map(res => {
-        if (res['code'] === 'ACCEPTED') {
+        let resData = new ApiResponse(
+          res['code'],
+          res['payload'],
+          res['message']
+        )
+        if (resData.code === 'ACCEPTED') {
           for (let i = 0; i < res['payload'].length; i++) {
-            this.promoCodes.push(new PromoCode(res['payload'][i].id, res['payload'][i].discount, res['payload'][i].code))
+            this.promoCodes.push(new PromoCode(
+              resData.payload[i].id,
+              resData.payload[i].discount,
+              resData.payload[i].code))
           }
         } else {
-          throw new Error(res['message'])
+          throw new Error(resData.message)
         }
       }))
   }
@@ -38,9 +49,14 @@ export class PromocodeService {
       headers: header
     })
       .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
+        let resData = new ApiResponse(
+          data['code'],
+          data['payload'],
+          data['message']
+        )
+        if (resData.code === 'ACCEPTED') {
         } else {
-          throw new Error(data['message'])
+          throw new Error(resData.message)
         }
       }));
   }
@@ -51,9 +67,14 @@ export class PromocodeService {
       headers: header
     })
       .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
+        let resData = new ApiResponse(
+          data['code'],
+          data['payload'],
+          data['message']
+        )
+        if (resData.code === 'ACCEPTED') {
         } else {
-          throw new Error(data['message'])
+          throw new Error(resData.message)
         }
       }));
   }
@@ -64,10 +85,22 @@ export class PromocodeService {
       headers: header
     })
       .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
+        let resData = new ApiResponse(
+          data['code'],
+          data['payload'],
+          data['message']
+        )
+        if (resData.code === 'ACCEPTED') {
         } else {
-          throw new Error(data['message'])
+          throw new Error(resData.message)
         }
       }));
+  }
+
+  errorHandler(message: string) {
+    return this.snackBar.open(message, 'Oh no..', {
+      duration: 3000,
+      horizontalPosition: 'right'
+    });
   }
 }

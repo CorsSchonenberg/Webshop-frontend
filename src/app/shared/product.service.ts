@@ -47,7 +47,7 @@ export class ProductService {
           }
           this.createFilteredShop()
         } else {
-          throw new Error(data['message'])
+          throw new Error(resData.message)
         }
       }))
   }
