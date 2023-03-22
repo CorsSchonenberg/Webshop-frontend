@@ -1,11 +1,11 @@
 import {Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
-import { map, Subscription} from "rxjs";
+import {map, Observable, Subscription} from "rxjs";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
 import {User} from "./models/user.model";
 import {ApiResponse} from "./models/ApiResponse.model";
-import {MatSnackBar} from "@angular/material/snack-bar";
+import {MatSnackBar, MatSnackBarRef, TextOnlySnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root"
@@ -18,7 +18,7 @@ export class AuthService {
               private _snackBar: MatSnackBar) {
   }
 
-  registerHandler(user: User) {
+  registerHandler(user: User): Observable<void> {
     return this.http.post<HttpClient>(environment.apiKey + 'auth/register', user)
       .pipe(map(data => {
         const resData = new ApiResponse(
@@ -47,7 +47,7 @@ export class AuthService {
   }
 
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<void> {
     return this.http
       .post<HttpClient>(environment.apiKey + 'auth/login', {
           email,
@@ -76,7 +76,7 @@ export class AuthService {
         }));
   }
 
-  infoHandler() {
+  infoHandler(): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
     return this.http.get<HttpClient>(environment.apiKey + 'auth/info',
       {
@@ -102,7 +102,7 @@ export class AuthService {
       }))
   }
 
-  errorHandler(message: string) {
+  errorHandler(message: string): MatSnackBarRef<TextOnlySnackBar> {
     return this._snackBar.open(message, 'Oh no..', {
       duration: 3000,
       horizontalPosition: 'right'

@@ -20,12 +20,12 @@ export class AdminComponent implements OnInit, OnDestroy {
               private router: Router) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.fetchData();
 
   }
 
-  fetchData() {
+  fetchData(): void {
     this.productService.adminProducts = [];
     this.productSub = this.productService.getAllProducts().subscribe({
       next: () => {
@@ -42,7 +42,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
   }
 
-  async onDeleteProduct(product: Product) {
+  async onDeleteProduct(product: Product): Promise<void> {
 
     this.productService.adminProducts = [];
     for (let i = 0; i < this.products.length; i++) {
@@ -80,7 +80,7 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.addMode = !this.addMode;
   }
 
-  onEditProduct(product: Product) {
+  onEditProduct(product: Product): void {
     this.productService.productEdit = product;
     this.router.navigate(['/edit'])
   }
