@@ -12,12 +12,15 @@ import {HeaderComponent} from "../header/header.component";
 import {RouterModule} from "@angular/router";
 import { AlertComponent } from './alert/alert.component';
 import {DiscountPipe} from "./discount.pipe";
+import { PromocodeFormComponent } from './promocode-form/promocode-form.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
     HeaderComponent,
     AlertComponent,
-    DiscountPipe
+    DiscountPipe,
+    PromocodeFormComponent
 
   ],
   imports: [
@@ -31,21 +34,23 @@ import {DiscountPipe} from "./discount.pipe";
     MatSnackBarModule,
     MatSelectModule,
     RouterModule,
+    FormsModule,
   ],
-  exports: [
-    MatNativeDateModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatIconModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    HeaderComponent,
-    AlertComponent,
-    DiscountPipe
-  ]
+    exports: [
+        MatNativeDateModule,
+        BrowserAnimationsModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatDialogModule,
+        MatButtonModule,
+        MatIconModule,
+        MatSnackBarModule,
+        MatSelectModule,
+        HeaderComponent,
+        AlertComponent,
+        DiscountPipe,
+        PromocodeFormComponent
+    ]
 })
 export class SharedModule {
 

@@ -54,13 +54,9 @@ export class ProductService {
       headers: header
     })
       .pipe(map(data => {
-        const resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message'])
-        if (resData.code === 'ACCEPTED') {
+        if (data.code === 'ACCEPTED') {
         } else {
-          throw new Error(resData.message)
+          throw new Error(data.message)
         }
       }));
   }
@@ -71,30 +67,22 @@ export class ProductService {
       headers: header
     })
       .pipe(map(data => {
-        const resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message'])
-        if (resData.code === 'ACCEPTED') {
+        if (data.code === 'ACCEPTED') {
         } else {
-          throw new Error(resData.message)
+          throw new Error(data.message)
         }
       }));
   }
 
   public updateProduct(updatedCode: Object): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put<HttpClient>(environment.apiKey + 'product/' + this.userService.getUser().id + '/update', updatedCode, {
+    return this.http.put<ApiResponse>(environment.apiKey + 'product/' + this.userService.getUser().id + '/update', updatedCode, {
       headers: header
     })
       .pipe(map(data => {
-        const resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message'])
-        if (resData.code === 'ACCEPTED') {
+        if (data.code === 'ACCEPTED') {
         } else {
-          throw new Error(resData.message)
+          throw new Error(data.message)
         }
       }));
   }

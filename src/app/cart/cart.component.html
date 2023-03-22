@@ -3,10 +3,21 @@
 <div class="flex">
   <div class="divtop">
     <p class="subtext">Your cart</p>
-    <div class="grid">
-      <app-cart-item></app-cart-item>
+    <div>
+      <h5>{{ this.codeMessage }}</h5>
+      <app-promocode-form *ngIf="promoCodeMode"></app-promocode-form>
+      <button class="custom-button" (click)="onChangePromoCodeMode()">{{ this.promoCodeButtonMessage }}</button>
+
     </div>
-    <button class="custom-button" (click)="onPay()">Pay here!</button>
+    <hr>
+    <hr>
+    <hr>
+    <div *ngIf="!promoCodeMode">
+      <div class="grid">
+        <app-cart-item></app-cart-item>
+      </div>
+      <button class="custom-button" (click)="onPay()">Pay here!</button>
+    </div>
   </div>
 </div>
 <hr>

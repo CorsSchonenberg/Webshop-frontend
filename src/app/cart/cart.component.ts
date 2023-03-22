@@ -8,6 +8,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
+import {PromocodeService} from "../shared/promocode.service";
 
 @Component({
   selector: 'app-cart',
@@ -16,13 +17,17 @@ import {Router} from "@angular/router";
 })
 export class CartComponent implements OnInit {
   newOrderSub: Subscription;
+  promoCodeMode: boolean = false;
+  promoCodeButtonMessage: string = "Add Code";
+  codeMessage: string = this.codeMessageHandler();
   public filteredCart: Cart[] = this.productService.filteredCart;
 
   constructor(private productService: ProductService,
               private orderService: OrderService,
               private userService: UserService,
               private _snackBar: MatSnackBar,
-              private router: Router) {
+              private router: Router,
+              private promoCodeService: PromocodeService) {
   }
 
   ngOnInit(): void {
@@ -70,5 +75,28 @@ export class CartComponent implements OnInit {
     this.productService.cart = [];
     this.productService.cart$.next(this.productService.cart);
     this.productService.filteredCart = []
+  }
+
+  onChangePromoCodeMode(): void {
+    this.promoCodeMode = !this.promoCodeMode;
+
+    if (this.promoCodeMode) {
+      this.promoCodeButtonMessage = "Go Back";
+    } else {
+      this.promoCodeButtonMessage = "Add Code";
+    }
+  }
+
+  codeMessageHandler(): string {
+    console.log(this.promoCodeService.activeCode)
+    if (this.promoCodeService.activeCode !== undefined) {
+      return "Your activated Code: " +
+        this.promoCodeService.activeCode.code +
+        ". Your dicount: " +
+        this.promoCodeService.activeCode.discount * 100 +
+        "%";
+    } else {
+      return "You dont have a Active code";
+    }
   }
 }

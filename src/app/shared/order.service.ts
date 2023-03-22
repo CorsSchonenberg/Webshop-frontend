@@ -41,20 +41,16 @@ export class OrderService {
     })
       .pipe(
         map(data => {
-          const resData = new ApiResponse(
-            data['code'],
-            data['payload'],
-            data['message'])
-        if (resData.code === 'ACCEPTED') {
+        if (data.code === 'ACCEPTED') {
         } else {
-          throw new Error(resData.message)
+          throw new Error(data.message)
         }
       }));
   }
 
-  public deleteOrder(id: number) {
+  public deleteOrder(id: number): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.delete(environment.apiKey + 'order/delete/' + id, {
+    return this.http.delete<ApiResponse>(environment.apiKey + 'order/delete/' + id, {
       headers: header
     })
       .pipe(map(data => {
@@ -65,9 +61,9 @@ export class OrderService {
       }));
   }
 
-  public updateOrder(updatedOrder: Object) {
+  public updateOrder(updatedOrder: Object): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put(environment.apiKey + 'order/update', updatedOrder, {
+    return this.http.put<ApiResponse>(environment.apiKey + 'order/update', updatedOrder, {
       headers: header
     })
       .pipe(map(data => {

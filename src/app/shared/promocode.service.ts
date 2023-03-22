@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {PromoCode} from "./models/promocode.model";
-import {map} from "rxjs";
+import {map, Observable} from "rxjs";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {environment} from "../../environments/environment";
@@ -13,6 +13,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class PromocodeService {
 
   public promoCodes: PromoCode[] = [];
+  public activeCode: PromoCode;
 
   constructor(private http: HttpClient,
               private userService: UserService,
@@ -94,6 +95,21 @@ export class PromocodeService {
         if (resData.code === 'ACCEPTED') {
         } else {
           throw new Error(resData.message)
+        }
+      }));
+  }
+
+  public checkIfCodeIsValid(code: string): Observable<void> {
+    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
+    return this.http.post<ApiResponse>(environment.apiKey + 'promocode/checker', code, {
+      headers: header
+    })
+      .pipe(map(data => {
+        if (data.code === 'ACCEPTED') {
+          console.log(data.payload)
+          this.activeCode = data.payload;
+        } else {
+          throw new Error(data.message)
         }
       }));
   }

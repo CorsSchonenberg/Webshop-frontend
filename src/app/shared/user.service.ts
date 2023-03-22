@@ -22,7 +22,7 @@ export class UserService {
     return JSON.parse(sessionStorage.getItem('user'));
   }
 
-  getJWT():string {
+  getJWT(): string {
     return sessionStorage.getItem('jwt');
   }
 
@@ -30,10 +30,10 @@ export class UserService {
     sessionStorage.setItem('jwt', jwt);
   }
 
-  destroyJWT() {
+  destroyJWT(): void {
     sessionStorage.removeItem('jwt');
   }
-  destroyUser(){
+  destroyUser(): void {
     sessionStorage.removeItem('user')
   }
 

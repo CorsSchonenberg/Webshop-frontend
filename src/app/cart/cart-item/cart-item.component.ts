@@ -112,9 +112,7 @@ export class CartItemComponent implements OnInit {
         this.cart[i].amount = this.cart[i].amount - 1;
         if (this.cart[i].amount < 1) {
           this.cart.splice(i, 1);
-
         }
-
       }
     }
     this.productService.setFilteredCart(this.cart);
