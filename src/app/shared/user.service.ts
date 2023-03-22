@@ -36,5 +36,4 @@ export class UserService {
   destroyUser(): void {
     sessionStorage.removeItem('user')
   }
-
 }

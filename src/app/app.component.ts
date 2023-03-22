@@ -9,7 +9,8 @@ export class AppComponent{
 
   //to-do:
   //promocode in kunnen vullen bij betaling
-  // promocodes veilig maken in backend
+  // promocodes veilig maken in backend en wellicht nieuwe manier
+  // order updaten met een bedrag field zodat de promocode opgeslagen wordt
   constructor() {
   }
 }
