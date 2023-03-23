@@ -52,7 +52,7 @@ export class ShopComponent implements OnDestroy, OnInit {
       return;
     }
     this.loadAlert = false;
-    this.productService.test(product)
+    this.productService.addNewProduct(product)
     this.productService.cart$.next(this.productService.products.length);
   }
 

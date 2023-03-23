@@ -18,7 +18,7 @@ export class ProductService {
   public filteredCart: Cart[] = [];
   public adminProducts: Product[] = [];
   public shopProducts: Product[] = [];
-  output: number = this.calculateCartAmount()
+  public output: number = this.calculateCartAmount()
   public cart$: Subject<number> = new BehaviorSubject<number>(this.output);
 
   public productEdit: Product;
@@ -97,11 +97,6 @@ export class ProductService {
     });
   }
 
-
-  setFilteredCart(newFilteredCart: Cart[]): void {
-    this.filteredCart = newFilteredCart;
-  }
-
   createFilteredShop(): void {
     for (let i = 0; i < this.adminProducts.length; i++) {
       if (this.adminProducts[i].active) {
@@ -154,52 +149,57 @@ export class ProductService {
     }
   }
 
-  getProductAmount(): void {
+  getProductAmount(cartWithoutValue: Cart[]): void {
     let count = 0;
     let amount = 0;
     for (let i = 0; i < this.products.length; i++) {
       amount++;
       if (this.products.length - 1 === i) {
-        this.filteredCart[count].amount = amount;
+        cartWithoutValue[count].amount = amount;
         count++;
         break;
       }
       if (this.products[i].id !== this.products[i + 1].id) {
-        this.filteredCart[count].amount = amount;
+        cartWithoutValue[count].amount = amount;
         count++;
         amount = 0;
       }
     }
 
     let temporaryCart = []
-    for (let i = 0; i < this.filteredCart.length; i++) {
-      if (this.filteredCart[i].amount !== null) {
-        temporaryCart.push(this.filteredCart[i])
+    for (let i = 0; i < cartWithoutValue.length; i++) {
+      if (cartWithoutValue[i].amount !== null) {
+        temporaryCart.push(cartWithoutValue[i])
       }
-      this.filteredCart = temporaryCart;
-      console.log(this.filteredCart)
     }
+    this.filteredCart = cartWithoutValue;
+    console.log(temporaryCart)
   }
 
-  checkCartNumbers(): void {
+  checkCartNumbers(): Cart [] {
+    let cartWithoutValue = []
     for (let i = 0; i < this.products.length; i++) {
-      if (this.filteredCart.length === 0) {
-        this.filteredCart.push(new Cart(this.products[i], null));
+      if (cartWithoutValue.length === 0) {
+        cartWithoutValue.push(new Cart(this.products[i], null));
 
       }
       if (this.products.length - 1 === i) {
-        return;
+        return cartWithoutValue;
       }
       if (this.products[i].id !== this.products[i + 1].id) {
-        this.filteredCart.push(new Cart(this.products[i + 1], null));
+        cartWithoutValue.push(new Cart(this.products[i + 1], null));
       }
     }
+    return cartWithoutValue;
   }
-  test(product: Product) {
+
+  initializeProduct(): void{
+    this.sortCartNumbers()
+    this.getProductAmount(this.checkCartNumbers());
+  }
+  addNewProduct(product: Product): void {
     this.products.push(product);
     this.addCartToStorage(this.products)
-    this.sortCartNumbers()
-    this.checkCartNumbers();
-    this.getProductAmount();
+    this.initializeProduct();
   }
 }

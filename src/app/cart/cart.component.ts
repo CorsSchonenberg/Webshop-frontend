@@ -7,7 +7,7 @@ import {UserService} from "../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 import {Subscription} from "rxjs";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {PromocodeService} from "../shared/promocode.service";
 
 @Component({
@@ -20,24 +20,25 @@ export class CartComponent implements OnInit {
   promoCodeMode: boolean = false;
   promoCodeButtonMessage: string = "Add Code";
   codeMessage: string = this.codeMessageHandler();
-  filteredCart: Cart[] = this.productService.filteredCart;
+  filteredCart: Cart[];
 
   constructor(private productService: ProductService,
               private orderService: OrderService,
               private userService: UserService,
               private _snackBar: MatSnackBar,
               private router: Router,
-              private promoCodeService: PromocodeService) {
+              private promoCodeService: PromocodeService,) {
   }
 
   ngOnInit(): void {
   }
 
 
-  async onPay() {
+   onPay() {
+    this.productService.initializeProduct();
     this.filteredCart = this.productService.filteredCart;
+    console.log(this.productService.filteredCart)
     let orders: Order [] = [];
-    console.log(this.filteredCart)
     for (let i = 0; i < this.filteredCart.length; i++) {
       let userId: number = this.userService.getUser().id;
       let order = new Order(
@@ -48,7 +49,6 @@ export class CartComponent implements OnInit {
       delete order.id;
       orders.push(order)
     }
-    console.log(orders)
     this.newOrderSub = this.orderService.postOrder(orders).subscribe({
       next: () => {
         this.productService.resetCartStorage();
@@ -70,19 +70,6 @@ export class CartComponent implements OnInit {
         } else this.orderService.errorHandler(err);
       }
     })
-
-    this.filteredCart = this.productService.filteredCart;
-    let userId: number = this.userService.getUser().id;
-    for (let i = 0; i < this.filteredCart.length; i++) {
-      await new Promise(r => setTimeout(r, 250));
-      let order = new Order(
-        null,
-        this.filteredCart[i].Product.id,
-        this.filteredCart[i].amount,
-        userId)
-      delete order.id;
-    }
-    await new Promise(r => setTimeout(r, 1000));
     this.filteredCart = [];
     this.productService.products = [];
     this.productService.filteredCart = []
@@ -109,4 +96,6 @@ export class CartComponent implements OnInit {
       return "You dont have a Active code";
     }
   }
+
+
 }

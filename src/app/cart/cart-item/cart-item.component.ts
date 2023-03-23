@@ -5,6 +5,7 @@ import {OrderService} from "../../shared/order.service";
 import {UserService} from "../../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Product} from "../../shared/models/product.model";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-cart-item',
@@ -17,19 +18,19 @@ export class CartItemComponent implements OnInit {
   public priceOutput: number
 
   public products: Product[] = this.productService.products;
-  public cart: Cart[] = this.productService.filteredCart;
+  public cart: Cart[] =[];
 
 
   constructor(private productService: ProductService,
               private orderService: OrderService,
               private userService: UserService,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar
+  ) {
   }
 
   ngOnInit(): void {
-    this.productService.sortCartNumbers()
-    this.productService.checkCartNumbers();
-    this.productService.getProductAmount();
+    this.productService.initializeProduct();
+    this.cart = this.productService.filteredCart;
     this.calculatePrice();
   }
 
@@ -48,7 +49,7 @@ export class CartItemComponent implements OnInit {
       }
     }
     this.calculatePrice();
-    this.productService.setFilteredCart(this.cart);
+    this.productService.filteredCart = this.cart;
     this.addCartToStorage();
     this.productService.cart$.next(this.productService.calculateCartAmount());
   }
@@ -69,7 +70,7 @@ export class CartItemComponent implements OnInit {
       }
     }
     this.calculatePrice();
-    this.productService.setFilteredCart(this.cart);
+    this.productService.filteredCart = this.cart;
     this.addCartToStorage();
     this.productService.cart$.next(this.productService.calculateCartAmount());
   }
