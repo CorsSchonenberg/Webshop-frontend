@@ -21,6 +21,7 @@ export class CartComponent implements OnInit {
   promoCodeButtonMessage: string = "Add Code";
   codeMessage: string = this.codeMessageHandler();
   filteredCart: Cart[];
+  promocodeDisount: number = 0;
 
   constructor(private productService: ProductService,
               private orderService: OrderService,
@@ -37,14 +38,18 @@ export class CartComponent implements OnInit {
    onPay() {
     this.productService.initializeProduct();
     this.filteredCart = this.productService.filteredCart;
-    console.log(this.productService.filteredCart)
+    if (this.promoCodeService.activeCode) {
+      this.promocodeDisount = this.promoCodeService.activeCode.discount;
+    }
     let orders: Order [] = [];
     for (let i = 0; i < this.filteredCart.length; i++) {
       let userId: number = this.userService.getUser().id;
+      let calculatedPrice = (this.filteredCart[i].Product.price * (1 - this.promocodeDisount)) * this.filteredCart[i].amount;
       let order = new Order(
         null,
         this.filteredCart[i].Product.id,
         this.filteredCart[i].amount,
+        calculatedPrice,
         userId)
       delete order.id;
       orders.push(order)

@@ -26,7 +26,12 @@ export class OrderService {
       .pipe(map(res => {
         if (res['code'] === 'ACCEPTED') {
           for (let i = 0; i < res['payload'].length; i++) {
-            this.orders.push(new Order(res['payload'][i].id, res['payload'][i].productId, res['payload'][i].productAmount, res['payload'][i].userId))
+            this.orders.push(new Order(
+              res['payload'][i].id,
+              res['payload'][i].productId,
+              res['payload'][i].productAmount,
+              res['payload'][i].price,
+              res['payload'][i].userId))
           }
         } else {
           throw new Error(res['message'])

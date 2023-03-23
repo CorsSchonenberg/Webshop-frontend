@@ -6,6 +6,7 @@ import {UserService} from "../../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Product} from "../../shared/models/product.model";
 import {ActivatedRoute, Router} from "@angular/router";
+import {PromocodeService} from "../../shared/promocode.service";
 
 @Component({
   selector: 'app-cart-item',
@@ -16,6 +17,8 @@ export class CartItemComponent implements OnInit {
 
   @Input() cartItem: Cart;
   public priceOutput: number
+  public calculatedDiscount: number = 0;
+
 
   public products: Product[] = this.productService.products;
   public cart: Cart[] =[];
@@ -24,7 +27,8 @@ export class CartItemComponent implements OnInit {
   constructor(private productService: ProductService,
               private orderService: OrderService,
               private userService: UserService,
-              private _snackBar: MatSnackBar
+              private _snackBar: MatSnackBar,
+              private promoCodeService: PromocodeService,
   ) {
   }
 
@@ -38,6 +42,9 @@ export class CartItemComponent implements OnInit {
     this.priceOutput = 0;
     for (let i = 0; i < this.cart.length; i++) {
       this.priceOutput += this.cart[i].Product.price * this.cart[i].amount;
+    }
+    if (this.promoCodeService.activeCode) {
+      this.calculatedDiscount = this.priceOutput * (this.promoCodeService.activeCode.discount);
     }
   }
 
