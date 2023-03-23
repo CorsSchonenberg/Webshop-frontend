@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 
 import {HttpClient} from "@angular/common/http";
 import {User} from "./models/user.model";
+import {ProductService} from "./product.service";
 
 
 @Injectable({
@@ -34,6 +35,6 @@ export class UserService {
     sessionStorage.removeItem('jwt');
   }
   destroyUser(): void {
-    sessionStorage.removeItem('user')
+    sessionStorage.removeItem('user');
   }
 }

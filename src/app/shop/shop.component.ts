@@ -5,6 +5,7 @@ import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../shared/user.service";
 import {Router} from "@angular/router";
+import {Cart} from "../shared/models/Cart.model";
 
 @Component({
   selector: 'app-shop',
@@ -51,8 +52,8 @@ export class ShopComponent implements OnDestroy, OnInit {
       return;
     }
     this.loadAlert = false;
-    this.productService.cart.push(product)
-    this.productService.cart$.next(this.productService.cart.slice());
+    this.productService.test(product)
+    this.productService.cart$.next(this.productService.products.length);
   }
 
   ngOnDestroy(): void {

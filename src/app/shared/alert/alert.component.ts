@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";
+import {ProductService} from "../product.service";
 
 @Component({
   selector: 'app-alert',
@@ -14,7 +15,8 @@ export class AlertComponent implements OnInit {
   @Output() close = new EventEmitter<void>();
 
   constructor(private userService: UserService,
-              private router: Router) { }
+              private router: Router,
+              private productService: ProductService) { }
 
   ngOnInit(): void {
   }

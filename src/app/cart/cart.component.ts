@@ -20,7 +20,7 @@ export class CartComponent implements OnInit {
   promoCodeMode: boolean = false;
   promoCodeButtonMessage: string = "Add Code";
   codeMessage: string = this.codeMessageHandler();
-  public filteredCart: Cart[] = this.productService.filteredCart;
+  filteredCart: Cart[] = this.productService.filteredCart;
 
   constructor(private productService: ProductService,
               private orderService: OrderService,
@@ -36,6 +36,42 @@ export class CartComponent implements OnInit {
 
   async onPay() {
     this.filteredCart = this.productService.filteredCart;
+    let orders: Order [] = [];
+    console.log(this.filteredCart)
+    for (let i = 0; i < this.filteredCart.length; i++) {
+      let userId: number = this.userService.getUser().id;
+      let order = new Order(
+        null,
+        this.filteredCart[i].Product.id,
+        this.filteredCart[i].amount,
+        userId)
+      delete order.id;
+      orders.push(order)
+    }
+    console.log(orders)
+    this.newOrderSub = this.orderService.postOrder(orders).subscribe({
+      next: () => {
+        this.productService.resetCartStorage();
+        let snackBarRef = this._snackBar.open('Your order has been handled', 'Nice!', {
+          duration: 2000,
+          horizontalPosition: 'right'
+        });
+        snackBarRef.afterDismissed().subscribe(() => {
+          this.productService.cart$.next(0);
+          this.newOrderSub.unsubscribe();
+          this.router.navigate(['/'])
+        });
+        this.newOrderSub.unsubscribe();
+      }, error: err => {
+        if (err['status'] === 401) {
+          return this.orderService.errorHandler("Error 401: Not authorized");
+        } else if (err['statusText'] === "Unknown Error") {
+          return this.orderService.errorHandler("Error 404: Not found");
+        } else this.orderService.errorHandler(err);
+      }
+    })
+
+    this.filteredCart = this.productService.filteredCart;
     let userId: number = this.userService.getUser().id;
     for (let i = 0; i < this.filteredCart.length; i++) {
       await new Promise(r => setTimeout(r, 250));
@@ -45,35 +81,10 @@ export class CartComponent implements OnInit {
         this.filteredCart[i].amount,
         userId)
       delete order.id;
-
-      this.newOrderSub = this.orderService.postOrder(order).subscribe({
-        next: () => {
-          if (this.filteredCart.length - 1 === i) {
-            let snackBarRef = this._snackBar.open('Your order has been handled', 'Nice!', {
-              duration: 3000,
-              horizontalPosition: 'right'
-            });
-            snackBarRef.afterDismissed().subscribe(() => {
-              this.newOrderSub.unsubscribe();
-              this.router.navigate(['/'])
-            });
-          }
-
-          this.newOrderSub.unsubscribe();
-        }, error: err => {
-          if (err['status'] === 401) {
-            return this.orderService.errorHandler("Error 401: Not authorized");
-          } else if (err['statusText'] === "Unknown Error") {
-            return this.orderService.errorHandler("Error 404: Not found");
-          } else this.orderService.errorHandler(err);
-
-        }
-      })
     }
     await new Promise(r => setTimeout(r, 1000));
     this.filteredCart = [];
-    this.productService.cart = [];
-    this.productService.cart$.next(this.productService.cart);
+    this.productService.products = [];
     this.productService.filteredCart = []
   }
 
@@ -88,7 +99,6 @@ export class CartComponent implements OnInit {
   }
 
   codeMessageHandler(): string {
-    console.log(this.promoCodeService.activeCode)
     if (this.promoCodeService.activeCode !== undefined) {
       return "Your activated Code: " +
         this.promoCodeService.activeCode.code +
