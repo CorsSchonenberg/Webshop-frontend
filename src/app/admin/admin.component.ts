@@ -16,7 +16,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   products: Product[] = this.productService.adminProducts;
 
   constructor(private productService: ProductService,
-              private _snackBar: MatSnackBar,
+              private snackBar: MatSnackBar,
               private router: Router) {
   }
 
@@ -60,7 +60,7 @@ export class AdminComponent implements OnInit, OnDestroy {
         } else {
           message = "Your product has been deleted";
         }
-        this._snackBar.open(message, 'Nice!', {
+        this.snackBar.open(message, 'Nice!', {
           duration: 3000,
           horizontalPosition: 'right'
         });

@@ -4,8 +4,6 @@ import {ShopComponent} from "./shop.component";
 import {SharedModule} from "../shared/shared.module";
 import {FormsModule} from "@angular/forms";
 import {RouterModule} from "@angular/router";
-import {CartComponent} from "../cart/cart.component";
-import {AuthGuard} from "../shared/auth.guard";
 import {ShopResolverService} from "../shared/shop-resolver.service";
 
 

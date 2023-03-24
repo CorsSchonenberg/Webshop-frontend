@@ -41,9 +41,11 @@ mat-form-field {
   background-position: center;
   transition: background 0.8s;
 }
+
 .ripple:hover {
   background: rgba(172, 87, 252, 0.76) radial-gradient(circle, transparent 1%, rgba(185, 141, 215, 0.76) 1%) center/15000%;
 }
+
 .ripple:active {
   background-color: #8558e5;
   background-size: 100%;
@@ -62,6 +64,7 @@ mat-form-field {
   box-shadow: 0 0 4px #999;
   outline: none;
 }
+
 #goBackButton {
   padding: 0px;
   margin-top: 0px;
@@ -69,7 +72,6 @@ mat-form-field {
   width: 105px;
   height: 40px;
 }
-
 
 
 @media (max-width: 750px) {

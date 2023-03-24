@@ -17,8 +17,8 @@ export class AddmodeComponent implements OnInit {
   productSub: Subscription;
 
   constructor(
-              private productService: ProductService,
-              private _snackBar: MatSnackBar) {
+    private productService: ProductService,
+    private snackBar: MatSnackBar) {
 
   }
 
@@ -36,7 +36,7 @@ export class AddmodeComponent implements OnInit {
     delete product.id;
     this.productSub = this.productService.postProduct(product).subscribe({
       next: () => {
-        this._snackBar.open('Product has been Added!', 'Nice!', {
+        this.snackBar.open('Product has been Added!', 'Nice!', {
           duration: 3000,
           horizontalPosition: 'right'
         });

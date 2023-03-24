@@ -5,7 +5,6 @@ import {OrderService} from "../../shared/order.service";
 import {UserService} from "../../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {Product} from "../../shared/models/product.model";
-import {ActivatedRoute, Router} from "@angular/router";
 import {PromocodeService} from "../../shared/promocode.service";
 
 @Component({
@@ -19,9 +18,8 @@ export class CartItemComponent implements OnInit {
   public priceOutput: number
   public calculatedDiscount: number = 0;
 
-
   public products: Product[] = this.productService.products;
-  public cart: Cart[] =[];
+  public cart: Cart[] = [];
 
 
   constructor(private productService: ProductService,

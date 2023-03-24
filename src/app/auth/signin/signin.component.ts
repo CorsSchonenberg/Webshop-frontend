@@ -5,7 +5,6 @@ import {Router} from "@angular/router";
 import {UserService} from "../../shared/user.service";
 import {AuthService} from "../../shared/auth.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {User} from "../../shared/models/user.model";
 
 @Component({
   selector: 'app-signin',
@@ -14,14 +13,13 @@ import {User} from "../../shared/models/user.model";
 })
 export class SigninComponent implements OnInit {
   loginSubscription: Subscription;
-  infoSubscription: Subscription;
   public showPassword: boolean = false;
   @ViewChild('f') signinForm: NgForm;
 
   constructor(private router: Router,
               private userService: UserService,
               private authService: AuthService,
-              private _snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar) {
   }
 
 
@@ -31,7 +29,7 @@ export class SigninComponent implements OnInit {
       this.signinForm.value.password)
       .subscribe({
         next: () => {
-          let snackBarRef = this._snackBar.open("Succesfully logged in!", 'Nice!', {
+          let snackBarRef = this.snackBar.open("Succesfully logged in!", 'Nice!', {
             duration: 1000,
             horizontalPosition: 'right'
           });
@@ -46,8 +44,7 @@ export class SigninComponent implements OnInit {
             return this.authService.errorHandler("Error 401: Not authorized");
           } else if (err['statusText'] === "Unknown Error") {
             return this.authService.errorHandler("Error 404: Not found");
-          }
-          else this.authService.errorHandler(err);
+          } else this.authService.errorHandler(err);
         }
       })
   }

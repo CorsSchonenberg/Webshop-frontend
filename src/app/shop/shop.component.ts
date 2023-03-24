@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ProductService} from "../shared/product.service";
 import {Product} from "../shared/models/product.model";
 import {Subscription} from "rxjs";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {UserService} from "../shared/user.service";
 import {Router} from "@angular/router";
-import {Cart} from "../shared/models/Cart.model";
 
 @Component({
   selector: 'app-shop',

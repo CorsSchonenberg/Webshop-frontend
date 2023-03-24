@@ -12,13 +12,16 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class PromocodeDeleteComponent implements OnInit {
   @Input() id: number;
   promoCodeSub: Subscription;
+
   constructor(private promoCodeService: PromocodeService,
               private snackBar: MatSnackBar,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
   }
+
   onDelete(): void {
 
     this.promoCodeSub = this.promoCodeService.deleteCode(this.id).subscribe({
@@ -30,7 +33,7 @@ export class PromocodeDeleteComponent implements OnInit {
         });
 
         for (let i = 0; i < this.promoCodeService.promoCodes.length; i++) {
-          if (this.promoCodeService.promoCodes[i].id === i ){
+          if (this.promoCodeService.promoCodes[i].id === i) {
             this.promoCodeService.promoCodes.splice(i, 1);
           }
         }
@@ -45,6 +48,7 @@ export class PromocodeDeleteComponent implements OnInit {
       }
     })
   }
+
   resetPage(): void {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.navigate(['/promocode'], {

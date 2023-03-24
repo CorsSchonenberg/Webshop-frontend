@@ -6,11 +6,12 @@
     <p class="subtext">Admin Page</p>
     <app-addmode *ngIf="addMode"></app-addmode>
 
-    <button class="btn btn-default custom" *ngIf="!addMode"(click)="onChangeMode()">Add Product &#x271A; </button>
+    <button class="btn btn-default custom" *ngIf="!addMode" (click)="onChangeMode()">Add Product &#x271A;</button>
     <button class="btn btn-default " *ngIf="addMode" (click)="onChangeMode()">Go back to here</button>
 
     <div *ngIf="!addMode" class="grid">
-      <ul *ngFor="let product of products" [ngStyle]="{backgroundColor: !product.active ? '#FFE4E1FF': 'white'}" class="shop-list-item">
+      <ul *ngFor="let product of products" [ngStyle]="{backgroundColor: !product.active ? '#FFE4E1FF': 'white'}"
+          class="shop-list-item">
         <li class="img-responsive img">
           <img src="{{product.url}}" alt="{{product.description}}">
         </li>
@@ -21,11 +22,11 @@
           <h5> {{product.price | currency:'EUR'}}</h5>
         </li>
         <li class="padding-item">
-            <button *ngIf="product.active" (click)="onDeleteProduct(product)" type="button"
-                    class="btn btn-danger">
-              <b>Delete</b>
-            </button>
-          <button *ngIf="!product.active"(click)="onDeleteProduct(product)" type="button"
+          <button *ngIf="product.active" (click)="onDeleteProduct(product)" type="button"
+                  class="btn btn-danger">
+            <b>Delete</b>
+          </button>
+          <button *ngIf="!product.active" (click)="onDeleteProduct(product)" type="button"
                   class="btn btn-primary">
             <b>Add</b>
           </button>

@@ -7,7 +7,7 @@ import {UserService} from "../shared/user.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 
 import {Subscription} from "rxjs";
-import {ActivatedRoute, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {PromocodeService} from "../shared/promocode.service";
 
 @Component({
@@ -35,7 +35,7 @@ export class CartComponent implements OnInit {
   }
 
 
-   onPay() {
+  onPay() {
     this.productService.initializeProduct();
     this.filteredCart = this.productService.filteredCart;
     if (this.promoCodeService.activeCode) {
@@ -54,6 +54,7 @@ export class CartComponent implements OnInit {
       delete order.id;
       orders.push(order)
     }
+
     this.newOrderSub = this.orderService.postOrder(orders).subscribe({
       next: () => {
         this.productService.resetCartStorage();
@@ -75,6 +76,7 @@ export class CartComponent implements OnInit {
         } else this.orderService.errorHandler(err);
       }
     })
+
     this.filteredCart = [];
     this.productService.products = [];
     this.productService.filteredCart = []
@@ -101,6 +103,4 @@ export class CartComponent implements OnInit {
       return "You dont have a Active code";
     }
   }
-
-
 }

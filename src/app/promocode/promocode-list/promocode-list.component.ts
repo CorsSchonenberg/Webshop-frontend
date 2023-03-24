@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {PromoCode} from "../../shared/models/promocode.model";
 import {PromocodeService} from "../../shared/promocode.service";
 import {Subscription} from "rxjs";
@@ -11,7 +11,9 @@ import {Subscription} from "rxjs";
 export class PromocodeListComponent implements OnInit {
   promoCodes: PromoCode[] = this.promoCodeService.promoCodes;
   promocodeSub: Subscription;
-  constructor(private promoCodeService: PromocodeService) { }
+
+  constructor(private promoCodeService: PromocodeService) {
+  }
 
   ngOnInit(): void {
     if (this.promoCodeService.promoCodes.length !== 0) {
@@ -19,6 +21,7 @@ export class PromocodeListComponent implements OnInit {
     }
     this.fetchPromoCodes();
   }
+
   fetchPromoCodes(): void {
     console.log(this.promoCodes)
     this.promocodeSub = this.promoCodeService.getAllCodes().subscribe({
@@ -35,5 +38,4 @@ export class PromocodeListComponent implements OnInit {
       }
     })
   }
-
 }

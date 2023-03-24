@@ -10,9 +10,9 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatSelectModule} from "@angular/material/select";
 import {HeaderComponent} from "../header/header.component";
 import {RouterModule} from "@angular/router";
-import { AlertComponent } from './alert/alert.component';
+import {AlertComponent} from './alert/alert.component';
 import {DiscountPipe} from "./discount.pipe";
-import { PromocodeFormComponent } from './promocode-form/promocode-form.component';
+import {PromocodeFormComponent} from './promocode-form/promocode-form.component';
 import {FormsModule} from "@angular/forms";
 
 @NgModule({
@@ -36,22 +36,21 @@ import {FormsModule} from "@angular/forms";
     RouterModule,
     FormsModule,
   ],
-    exports: [
-        MatNativeDateModule,
-        BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        MatSnackBarModule,
-        MatSelectModule,
-        HeaderComponent,
-        AlertComponent,
-        DiscountPipe,
-        PromocodeFormComponent
-    ]
+  exports: [
+    MatNativeDateModule,
+    BrowserAnimationsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSnackBarModule,
+    MatSelectModule,
+    HeaderComponent,
+    AlertComponent,
+    DiscountPipe,
+    PromocodeFormComponent
+  ]
 })
 export class SharedModule {
-
 }

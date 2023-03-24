@@ -1,7 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from "../shared/user.service";
 import {Router} from "@angular/router";
-import {Cart} from "../shared/models/Cart.model";
 import {ProductService} from "../shared/product.service";
 
 @Component({
@@ -21,15 +20,16 @@ export class HeaderComponent implements OnInit {
               private router: Router,
               private productService: ProductService) {
     productService.cart$.subscribe(data => {
-      if (data === null || data === undefined) {
-        return;
-      }
+        if (data === null || data === undefined) {
+          return;
+        }
         this.cartNumber = this.productService.products.length;
       }, error => {
         alert("Error Message");
       }
     )
   }
+
   onPress() {
     this.loadAlert = !this.loadAlert;
   }
@@ -48,6 +48,5 @@ export class HeaderComponent implements OnInit {
       this.isAuthenticated = true;
       this.isAdmin = this.userService.getUser().admin;
     }
-
   }
 }

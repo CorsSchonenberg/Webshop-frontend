@@ -18,7 +18,8 @@ export class PromocodeItemComponent implements OnInit {
   constructor(private promoCodeService: PromocodeService,
               private snackBar: MatSnackBar,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute) {
+  }
 
   ngOnInit(): void {
   }

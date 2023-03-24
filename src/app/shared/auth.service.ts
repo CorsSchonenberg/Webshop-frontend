@@ -108,5 +108,4 @@ export class AuthService {
       horizontalPosition: 'right'
     });
   }
-
 }

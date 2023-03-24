@@ -1,12 +1,10 @@
 import {Injectable} from "@angular/core";
-import { Resolve} from "@angular/router";
-import {ProductService} from "./product.service";
+import {Resolve} from "@angular/router";
 import {catchError} from "rxjs";
-import {PromoCode} from "./models/promocode.model";
 import {PromocodeService} from "./promocode.service";
 
 @Injectable({providedIn: "root"})
-export class ShopResolverService implements Resolve<any>{
+export class ShopResolverService implements Resolve<any> {
 
   constructor(private promoCodeService: PromocodeService) {
   }
@@ -19,5 +17,4 @@ export class ShopResolverService implements Resolve<any>{
           return "Error has occured";
         }));
   }
-
 }

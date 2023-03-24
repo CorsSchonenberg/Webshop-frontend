@@ -1,4 +1,5 @@
-<app-alert (close)="onPress()" *ngIf="loadAlert" [callbackFunction]="onLogOut"[message]="'Are you sure you want to log out?'"></app-alert>
+<app-alert (close)="onPress()" *ngIf="loadAlert" [callbackFunction]="onLogOut"
+           [message]="'Are you sure you want to log out?'"></app-alert>
 <nav class="navbar navbar-default navbarStyle">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -9,13 +10,13 @@
     <div class="navbar-collapse" [class.collapse]="collapsed" (window:resize)="collapsed = true">
       <ul class="nav navbar-nav">
         <li><a routerLink="/">Shop</a></li>
-        <li *ngIf="isAuthenticated"> <a routerLink="/cart">Cart ({{cartNumber}})</a></li>
+        <li *ngIf="isAuthenticated"><a routerLink="/cart">Cart ({{cartNumber}})</a></li>
         <li *ngIf="isAdmin"><a routerLink="/admin">Admin</a></li>
         <li *ngIf="isAdmin"><a routerLink="/promocode">Promocodes</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li *ngIf="isAuthenticated" ><a (click)="onPress()">Log Out</a></li>
-        <li *ngIf="!isAuthenticated" ><a routerLink="/signin" >Sign In</a></li>
+        <li *ngIf="isAuthenticated"><a (click)="onPress()">Log Out</a></li>
+        <li *ngIf="!isAuthenticated"><a routerLink="/signin">Sign In</a></li>
       </ul>
     </div>
   </div>

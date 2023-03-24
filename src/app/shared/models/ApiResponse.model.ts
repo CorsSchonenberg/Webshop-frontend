@@ -1,4 +1,3 @@
-
 export class ApiResponse {
   public code: string;
   public payload: any;

@@ -16,23 +16,21 @@ export class EditmodeComponent implements OnInit {
   @ViewChild('f', {static: false}) addForm: NgForm;
 
   productSub: Subscription;
-  //productValues = [this.productService.productEdit.description, this.productService.productEdit.url, this.productService.productEdit.price]
-  productValues = {
+  productValues: object = {
     name: null,
     price: null,
     url: null,
   }
 
   constructor(
-              private productService: ProductService,
-              private _snackBar: MatSnackBar,
-              private router: Router) {
+    private productService: ProductService,
+    private _snackBar: MatSnackBar,
+    private router: Router) {
 
   }
 
 
   ngOnInit(): void {
-
     if (this.productService.productEdit === undefined) {
       return;
     }

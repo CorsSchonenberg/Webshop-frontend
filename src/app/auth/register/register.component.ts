@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   constructor(private router: Router,
               private userService: UserService,
               private authService: AuthService,
-              private _snackBar: MatSnackBar
+              private snackBar: MatSnackBar
   ) {
   }
 
@@ -37,7 +37,7 @@ export class RegisterComponent implements OnInit {
     delete user.id;
     this.authSub = this.authService.registerHandler(user).subscribe({
       next: () => {
-        let snackBarRef = this._snackBar.open("Succesfully logged in!", 'Nice!', {
+        let snackBarRef = this.snackBar.open("Succesfully logged in!", 'Nice!', {
           duration: 1000,
           horizontalPosition: 'right'
         });

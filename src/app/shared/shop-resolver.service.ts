@@ -17,5 +17,4 @@ export class ShopResolverService implements Resolve<any>{
           return "Error has occured";
         }));
   }
-
 }

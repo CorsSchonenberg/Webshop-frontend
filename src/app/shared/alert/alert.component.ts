@@ -16,7 +16,8 @@ export class AlertComponent implements OnInit {
 
   constructor(private userService: UserService,
               private router: Router,
-              private productService: ProductService) { }
+              private productService: ProductService) {
+  }
 
   ngOnInit(): void {
   }
@@ -25,7 +26,7 @@ export class AlertComponent implements OnInit {
     this.close.emit();
   }
 
-  onCallback():void {
+  onCallback(): void {
     this.callbackFunction();
     this.onClose();
   }

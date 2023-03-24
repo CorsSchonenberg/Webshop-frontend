@@ -16,7 +16,7 @@ import {AuthGuard} from "../shared/auth.guard";
     SharedModule,
     CommonModule,
     FormsModule,
-    RouterModule.forChild([{ path: 'cart', component: CartComponent, canActivate: [AuthGuard] }])
+    RouterModule.forChild([{path: 'cart', component: CartComponent, canActivate: [AuthGuard]}])
   ],
   exports: [
     CartComponent,
@@ -24,5 +24,4 @@ import {AuthGuard} from "../shared/auth.guard";
   ]
 })
 export class CartModule {
-
 }

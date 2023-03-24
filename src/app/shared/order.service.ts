@@ -46,11 +46,11 @@ export class OrderService {
     })
       .pipe(
         map(data => {
-        if (data.code === 'ACCEPTED') {
-        } else {
-          throw new Error(data.message)
-        }
-      }));
+          if (data.code === 'ACCEPTED') {
+          } else {
+            throw new Error(data.message)
+          }
+        }));
   }
 
   public deleteOrder(id: number): Observable<void> {
