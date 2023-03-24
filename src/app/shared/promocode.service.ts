@@ -66,24 +66,6 @@ export class PromocodeService {
       }));
   }
 
-  public updateCode(updatedCode: Object) {
-    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put(environment.apiKey + 'promocode/update', updatedCode, {
-      headers: header
-    })
-      .pipe(map(data => {
-        let resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message']
-        )
-        if (resData.code === 'ACCEPTED') {
-        } else {
-          throw new Error(resData.message)
-        }
-      }));
-  }
-
   public checkIfCodeIsValid(code: string): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
     return this.http.post<ApiResponse>(environment.apiKey + 'promocode/checker', code, {

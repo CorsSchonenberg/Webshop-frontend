@@ -11,32 +11,10 @@ import {MatSnackBar, MatSnackBarRef, TextOnlySnackBar} from "@angular/material/s
   providedIn: 'root'
 })
 export class OrderService {
-  public orders: Order[] = [];
 
   constructor(private http: HttpClient,
               private userService: UserService,
               private _snackBar: MatSnackBar) {
-  }
-
-  public getAllOrders() {
-    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get(environment.apiKey + 'order', {
-      headers: header
-    })
-      .pipe(map(res => {
-        if (res['code'] === 'ACCEPTED') {
-          for (let i = 0; i < res['payload'].length; i++) {
-            this.orders.push(new Order(
-              res['payload'][i].id,
-              res['payload'][i].productId,
-              res['payload'][i].productAmount,
-              res['payload'][i].price,
-              res['payload'][i].userId))
-          }
-        } else {
-          throw new Error(res['message'])
-        }
-      }))
   }
 
   public postOrder(newOrder: Object): Observable<void> {
@@ -51,32 +29,6 @@ export class OrderService {
             throw new Error(data.message)
           }
         }));
-  }
-
-  public deleteOrder(id: number): Observable<void> {
-    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.delete<ApiResponse>(environment.apiKey + 'order/delete/' + id, {
-      headers: header
-    })
-      .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
-        } else {
-          throw new Error(data['message'])
-        }
-      }));
-  }
-
-  public updateOrder(updatedOrder: Object): Observable<void> {
-    let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.put<ApiResponse>(environment.apiKey + 'order/update', updatedOrder, {
-      headers: header
-    })
-      .pipe(map(data => {
-        if (data['code'] === 'ACCEPTED') {
-        } else {
-          throw new Error(data['message'])
-        }
-      }));
   }
 
   errorHandler(message: string): MatSnackBarRef<TextOnlySnackBar> {
