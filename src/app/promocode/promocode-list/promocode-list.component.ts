@@ -23,7 +23,6 @@ export class PromocodeListComponent implements OnInit {
   }
 
   fetchPromoCodes(): void {
-    console.log(this.promoCodes)
     this.promocodeSub = this.promoCodeService.getAllCodes().subscribe({
       next: () => {
         this.promocodeSub.unsubscribe();

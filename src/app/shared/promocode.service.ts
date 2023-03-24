@@ -73,7 +73,6 @@ export class PromocodeService {
     })
       .pipe(map(data => {
         if (data.code === 'ACCEPTED') {
-          console.log(data.payload)
           this.activeCode = data.payload;
         } else {
           throw new Error(data.message)

@@ -173,7 +173,6 @@ export class ProductService {
       }
     }
     this.filteredCart = cartWithoutValue;
-    console.log(temporaryCart)
   }
 
   checkCartNumbers(): Cart [] {
