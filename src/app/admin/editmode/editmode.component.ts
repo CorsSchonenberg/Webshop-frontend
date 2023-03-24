@@ -16,7 +16,7 @@ export class EditmodeComponent implements OnInit {
   @ViewChild('f', {static: false}) addForm: NgForm;
 
   productSub: Subscription;
-  productValues: object = {
+  productValues = {
     name: null,
     price: null,
     url: null,
