@@ -23,14 +23,14 @@ export class ShopComponent implements OnDestroy, OnInit {
   }
 
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.productService.adminProducts.length !== 0) {
       return;
     }
     this.fetchData();
   }
 
-  fetchData() {
+  fetchData(): void  {
     this.productSub = this.productService.getAllProducts().subscribe({
       next: () => {
         this.productSub.unsubscribe();
@@ -45,7 +45,7 @@ export class ShopComponent implements OnDestroy, OnInit {
     });
   }
 
-  onAddToCart(product: Product) {
+  onAddToCart(product: Product): void  {
     if (this.userService.getUser() === null) {
       this.loadAlert = true;
       return;

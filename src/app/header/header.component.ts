@@ -30,11 +30,18 @@ export class HeaderComponent implements OnInit {
     )
   }
 
-  onPress() {
+  ngOnInit(): void {
+    if (this.userService.getUser() !== null) {
+      this.isAuthenticated = true;
+      this.isAdmin = this.userService.getUser().admin;
+    }
+  }
+
+  onPress(): void {
     this.loadAlert = !this.loadAlert;
   }
 
-  onLogOut() {
+  onLogOut(): void {
     this.userService.destroyJWT();
     this.userService.destroyUser();
     this.productService.resetCartStorage();
@@ -43,10 +50,5 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/signin'])
   }
 
-  ngOnInit() {
-    if (this.userService.getUser() !== null) {
-      this.isAuthenticated = true;
-      this.isAdmin = this.userService.getUser().admin;
-    }
-  }
+
 }

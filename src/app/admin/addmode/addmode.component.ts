@@ -13,7 +13,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 export class AddmodeComponent implements OnInit {
 
   @ViewChild('f') addForm: NgForm;
-  nextIdSub: Subscription;
   productSub: Subscription;
 
   constructor(

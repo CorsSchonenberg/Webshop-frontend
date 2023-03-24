@@ -13,10 +13,10 @@ import {User} from "../../shared/models/user.model";
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-  userSub: Subscription;
+
   authSub: Subscription;
   public showPassword: boolean = false;
-  private newUserId = null;
+  private newUserId: number = null;
   @ViewChild('f') signupForm: NgForm;
 
   constructor(private router: Router,

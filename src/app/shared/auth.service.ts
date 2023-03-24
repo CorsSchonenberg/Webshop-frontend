@@ -19,14 +19,10 @@ export class AuthService {
   }
 
   registerHandler(user: User): Observable<void> {
-    return this.http.post<HttpClient>(environment.apiKey + 'auth/register', user)
+    return this.http.post<ApiResponse>(environment.apiKey + 'auth/register', user)
       .pipe(map(data => {
-        const resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message'])
-        if (resData.code === 'ACCEPTED') {
-          this.userService.setJWT(resData.message);
+        if (data.code === 'ACCEPTED') {
+          this.userService.setJWT(data.message);
           this.infoSub = this.infoHandler().subscribe({
             next: () => {
               this.infoSub.unsubscribe();
@@ -49,18 +45,14 @@ export class AuthService {
 
   login(email: string, password: string): Observable<void> {
     return this.http
-      .post<HttpClient>(environment.apiKey + 'auth/login', {
+      .post<ApiResponse>(environment.apiKey + 'auth/login', {
           email,
           password
         }
       ).pipe(
         map(data => {
-          const resData = new ApiResponse(
-            data['code'],
-            data['payload'],
-            data['message'])
-          if (resData.code === 'ACCEPTED') {
-            this.userService.setJWT(resData.message);
+          if (data.code === 'ACCEPTED') {
+            this.userService.setJWT(data.message);
             this.infoHandler().subscribe({
               error: (err) => {
                 if (err['status'] === 401) {
@@ -71,33 +63,29 @@ export class AuthService {
               }
             })
           } else {
-            throw new Error(data['message'])
+            throw new Error(data.message)
           }
         }));
   }
 
   infoHandler(): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get<HttpClient>(environment.apiKey + 'auth/info',
+    return this.http.get<ApiResponse>(environment.apiKey + 'auth/info',
       {
         headers: header
       }).pipe(
       map(data => {
-        const resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message'])
-        if (data['code'] === 'ACCEPTED') {
+        if (data.code === 'ACCEPTED') {
           const user = new User(
-            resData.payload.id,
-            resData.payload.email,
-            resData.payload.password,
-            resData.payload.admin,
-            resData.payload.address
+            data.payload.id,
+            data.payload.email,
+            data.payload.password,
+            data.payload.admin,
+            data.payload.address
           );
           this.userService.setUser(user);
         } else {
-          throw new Error(resData.message)
+          throw new Error(data.message)
         }
       }))
   }

@@ -11,7 +11,6 @@ import {AdminModule} from "./admin/admin.module";
 import {RouterModule} from "@angular/router";
 import {CartModule} from "./cart/cart.module";
 import {ShopModule} from "./shop/shop.module";
-import { PromocodeComponent } from './promocode/promocode.component';
 import {PromocodeModule} from "./promocode/promocode.module";
 
 @NgModule({

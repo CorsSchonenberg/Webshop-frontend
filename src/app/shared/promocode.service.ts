@@ -20,63 +20,48 @@ export class PromocodeService {
               private snackBar: MatSnackBar) {
   }
 
-  public getAllCodes() {
+  public getAllCodes(): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.get(environment.apiKey + 'promocode', {
+    return this.http.get<ApiResponse>(environment.apiKey + 'promocode', {
       headers: header
     })
       .pipe(map(res => {
-        let resData = new ApiResponse(
-          res['code'],
-          res['payload'],
-          res['message']
-        )
-        if (resData.code === 'ACCEPTED') {
-          for (let i = 0; i < res['payload'].length; i++) {
+        if (res.code === 'ACCEPTED') {
+          for (let i = 0; i < res.payload.length; i++) {
             this.promoCodes.push(new PromoCode(
-              resData.payload[i].id,
-              resData.payload[i].discount,
-              resData.payload[i].code,
-              resData.payload[i].name,))
+              res.payload[i].id,
+              res.payload[i].discount,
+              res.payload[i].code,
+              res.payload[i].name,))
           }
         } else {
-          throw new Error(resData.message)
+          throw new Error(res.message)
         }
       }))
   }
 
-  public postCode(newCode: Object) {
+  public postCode(newCode: Object): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.post(environment.apiKey + 'promocode/insert', newCode, {
+    return this.http.post<ApiResponse>(environment.apiKey + 'promocode/insert', newCode, {
       headers: header
     })
       .pipe(map(data => {
-        let resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message']
-        )
-        if (resData.code === 'ACCEPTED') {
+        if (data.code === 'ACCEPTED') {
         } else {
-          throw new Error(resData.message)
+          throw new Error(data.message)
         }
       }));
   }
 
-  public deleteCode(id: number) {
+  public deleteCode(id: number): Observable<void> {
     let header = new HttpHeaders({"Authorization": "Bearer " + this.userService.getJWT()})
-    return this.http.delete(environment.apiKey + 'promocode/delete/' + id, {
+    return this.http.delete<ApiResponse>(environment.apiKey + 'promocode/delete/' + id, {
       headers: header
     })
       .pipe(map(data => {
-        let resData = new ApiResponse(
-          data['code'],
-          data['payload'],
-          data['message']
-        )
-        if (resData.code === 'ACCEPTED') {
+        if (data.code === 'ACCEPTED') {
         } else {
-          throw new Error(resData.message)
+          throw new Error(data.message)
         }
       }));
   }
